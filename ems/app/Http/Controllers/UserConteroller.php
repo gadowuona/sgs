@@ -13,7 +13,7 @@ class UserConteroller extends Controller
      */
     public function index()
     {
-        //
+        return view('staffadmin.users.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class UserConteroller extends Controller
      */
     public function create()
     {
-        //
+        return view('staffadmin.users.create');
     }
 
     /**

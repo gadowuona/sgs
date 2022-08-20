@@ -15,6 +15,7 @@
     @livewireStyles
     @powerGridStyles
 
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -38,8 +39,9 @@
 
     <!-- Scripts -->
     @livewireScripts
+    @wireUiScripts
     @powerGridScripts
-
+    <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
 </body>
 
 </html>

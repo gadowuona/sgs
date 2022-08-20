@@ -16,22 +16,23 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('staffid');
+            $table->integer('staffid')->unique();
             $table->string('first_name', 20);
             $table->string('middle_name')->nullable();
             $table->string('last_name', 20);
-            $table->date('birthdate');
+            $table->string('email')->unique();
+            $table->date('birthday');
             $table->enum('gender', ['male', 'female']);
             $table->string('phone1', 15)->nullable();
             $table->string('phone2', 15)->nullable();
-            $table->string('nid')->nullable();
+            $table->string('nid')->unique();
             $table->string('address');
             $table->string('collage');
-            $table->enum('fns', ['Faculty', 'School'])->default('Faculty');
+            $table->enum('fns', ['Faculty', 'School']);
             $table->string('department');
             $table->string('qualification');
             $table->text('picture');
-            $table->string('status');
+            $table->string('super_status')->nullable();
             $table->date('doa')->nullable();
             $table->string('faculty')->nullable();
             $table->string('school')->nullable();

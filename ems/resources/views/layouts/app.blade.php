@@ -15,14 +15,12 @@
     @livewireStyles
     @powerGridStyles
 
-
     <!-- Scripts -->
-    @wireUiScripts
-    <script src="//unpkg.com/alpinejs" defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">
+    <x-notifications />
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 
@@ -42,6 +40,10 @@
     <!-- Scripts -->
     @livewireScripts
     @powerGridScripts
+    @wireUiScripts
+    <!-- <script src="{{ asset('assets/js/alpine.min.js') }}"></script> -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
 </body>
 
 </html>

@@ -19,7 +19,7 @@
 
             <x-input label="Email" type="email" placeholder="Enter Email" required wire:model.defer="email" />
 
-            <x-input label="Birthday" type="date" required wire:model.defer="birthday" />
+            <x-input label="Birthdate" type="date" required wire:model.defer="birthdate" />
 
             <x-native-select label="Gender"
                 :options="[['value' => '', 'name' => 'select one'], ['value' => 'male', 'name' => 'Male'],['value' => 'female', 'name' => 'Female']]"
@@ -39,6 +39,16 @@
                 <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
             </div>
 
+
+
+            <x-native-select label="Faculty/School" :options="[['value' => '', 'name' => 'Select your College'], 
+                ['value' => 'college of humanities and legal studies', 'name' => 'College of Humanities and Legal Studies'],
+                ['value' => 'college of health and allied sciences', 'name' => 'College of Health and Allied Sciences'],
+                ['value' => 'college of distance education', 'name' => 'College of Distance Education'],
+                ['value' => 'college of education studies', 'name' => 'College of Education Studies'],
+                ['value' => 'college of agricultural and natural sciences', 'name' => 'College of Agricultural and Natural Sciences'],
+                ]" option-label="name" option-value="value" wire:model.defer="collage" />
+
             <x-native-select label="Faculty/School"
                 :options="[['value' => '', 'name' => 'select one'], ['value' => 'faculty', 'name' => 'Faculty'],['value' => 'school', 'name' => 'School']]"
                 option-label="name" option-value="value" wire:model.defer="fns" />
@@ -52,14 +62,12 @@
             <x-input label="Qualificaiton" type="text" placeholder="Enter Qualificaiton" required
                 wire:model.defer="qualification" />
 
-            <div class="col-span-2">
-
-                <div class="mb-4">
-                    <x-input label="Passport Picture" type="file" wire:model.defer="picture" required />
-                </div>
+            <div class="">
+                <x-input label="Picture" type="file" wire:model.defer="picture" required />
                 @if($picture)
-                <img src="{{$picture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
-                <x-avatar xl squared src="{{$picture->temporaryUrl()}}" />
+                <div class="mb-4">
+                    <img src="{{$picture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
+                </div>
                 @endif
             </div>
 

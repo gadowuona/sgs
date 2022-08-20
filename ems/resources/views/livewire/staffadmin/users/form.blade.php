@@ -52,11 +52,19 @@
             <x-input label="Qualificaiton" type="text" placeholder="Enter Qualificaiton" required
                 wire:model.defer="qualification" />
 
+            <div class="col-span-2">
 
+                <div class="mb-4">
+                    <x-input label="Passport Picture" type="file" wire:model.defer="picture" required />
+                </div>
+                @if($picture)
+                <img src="{{$picture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
+                <x-avatar xl squared src="{{$picture->temporaryUrl()}}" />
+                @endif
+            </div>
 
-        </div>
-        <div class="flex items-center justify-end mt-4">
-            <x-button rose type="submit" spinner="submit" :label="__('Submit')" />
-        </div>
+            <div class="flex items-center justify-end mt-4">
+                <x-button rose type="submit" spinner="submit" :label="__('Submit')" />
+            </div>
     </form>
 </div>

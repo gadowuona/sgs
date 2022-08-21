@@ -96,8 +96,8 @@ class Edit extends Component
 
         // handle notification
         $this->notification()->success(
-            $title = 'Profile saved',
-            $description = 'Your profile was successfull saved'
+            $title = 'Supervisor updated',
+            $description = 'Supervisors details was successfull updated'
         );
         sleep(3);
         return redirect()->route('supervisors.index');

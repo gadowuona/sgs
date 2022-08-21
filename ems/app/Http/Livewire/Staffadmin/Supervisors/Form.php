@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Staffadmin\Supervisors;
 
 use App\Mail\SupervisorRegistration;
-use App\Models\supervisor;
+use App\Models\Supervisor;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +67,7 @@ class Form extends Component
         ]);
 
         // create supervisor
-        $supervisor = supervisor::create([
+        $supervisor = Supervisor::create([
             'user_id' => $user->id,
             'staffid' => $this->staffid,
             'first_name' => $this->first_name,

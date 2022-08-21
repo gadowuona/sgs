@@ -1,6 +1,4 @@
 <div>
-
-
     <form wire:submit.prevent="save" enctype="multipart/form-data">
         @csrf
         <!-- <div class="mb-4 text-xl font-semibold text-gray-700">
@@ -63,7 +61,7 @@
                 wire:model.defer="qualification" />
 
             <div class="">
-                <x-input label="Picture" type="file" wire:model.defer="picture" required />
+                <input label="Picture" type="file" wire:model.defer="picture" required />
                 @if($picture)
                 <div class="mb-4">
                     <img src="{{$picture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">

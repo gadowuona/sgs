@@ -53,7 +53,7 @@ class Form extends Component
         $password = Str::random(8);
 
         // handle picture upload
-        $pictureName = Carbon::now()->timestamp . '.' . $this->picture->extension();
+        $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->picture->extension();
         $this->picture->storeAs('profile', $pictureName);
 
         // dd($password);

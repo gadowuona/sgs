@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-link href="{{ route('users.create') }}" class="mb-4">Add Supervisor</x-link>
                     <div>
-                        <livewire:user-table>
+                        <livewire:supervisor-table>
                     </div>
                 </div>
             </div>

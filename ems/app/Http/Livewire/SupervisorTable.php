@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class UserTable extends PowerGridComponent
+final class SupervisorTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -46,11 +46,11 @@ final class UserTable extends PowerGridComponent
     /**
      * PowerGrid datasource.
      *
-     * @return Builder<\App\Models\User>
+     * @return Builder<\App\Models\Profile>
      */
     public function datasource(): Builder
     {
-        return User::query()->where('role', 'STF')->with('profile');
+        return Profile::query()->with('user');
     }
 
     /*
@@ -82,11 +82,21 @@ final class UserTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('id')
-            ->addColumn('name')
-            ->addColumn('name')
-            ->addColumn('profile.nid')
-            ->addColumn('created_at_formatted', fn (User $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('staffid')
+            ->addColumn('user.name')
+            ->addColumn('user.email')
+            ->addColumn('phone1')
+            ->addColumn('nid')
+            ->addColumn('address')
+            ->addColumn('collage')
+            ->addColumn('fns')
+            ->addColumn('department')
+            ->addColumn('qualification')
+            ->addColumn('picture')
+            ->addColumn('super_status')
+            ->addColumn('faculty')
+            ->addColumn('school')
+            ->addColumn('created_at_formatted', fn (Profile $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -106,20 +116,68 @@ final class UserTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
+
+            Column::make('STAFFID', 'staffid')
                 ->makeInputRange(),
 
-            Column::make('NAME', 'name')
+            Column::make('PICTURE', 'picture'),
+
+            Column::make('NAME', 'user.name')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('EMAIL', 'email')
+            Column::make('EMAIl', 'user.email')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('NID', 'profile.nid')
+            Column::make('PHONE', 'phone1')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('NID', 'nid')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('ADDRESS', 'address')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('COLLAGE', 'collage')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('Faculty/School', 'fns')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('DEPARTMENT', 'department')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('QUALIFICATION', 'qualification')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('SUPER STATUS', 'super_status')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('FACULTY', 'faculty')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('SCHOOL', 'school')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -141,7 +199,7 @@ final class UserTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid User Action Buttons.
+     * PowerGrid Profile Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -171,7 +229,7 @@ final class UserTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid User Action Rules.
+     * PowerGrid Profile Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -183,7 +241,7 @@ final class UserTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($user) => $user->id === 1)
+                ->when(fn($profile) => $profile->id === 1)
                 ->hide(),
         ];
     }

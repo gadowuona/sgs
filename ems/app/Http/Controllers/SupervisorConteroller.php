@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserConteroller extends Controller
+class SupervisorConteroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class UserConteroller extends Controller
      */
     public function index()
     {
-        return view('staffadmin.users.index');
+        return view('staffadmin.supervisors.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class UserConteroller extends Controller
      */
     public function create()
     {
-        return view('staffadmin.users.create');
+        return view('staffadmin.supervisors.create');
     }
 
     /**

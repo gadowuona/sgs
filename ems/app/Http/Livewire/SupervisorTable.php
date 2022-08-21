@@ -81,18 +81,22 @@ final class SupervisorTable extends PowerGridComponent
     */
     public function addColumns(): PowerGridEloquent
     {
+
         return PowerGrid::eloquent()
             ->addColumn('staffid')
+            ->addColumn('picture', function (Profile $model) {
+                $path = asset("assets/profile/" . $model->picture);
+                return '<img class="m-1" src="' . $path . '" />';
+            })
             ->addColumn('user.name')
             ->addColumn('user.email')
             ->addColumn('phone1')
             ->addColumn('nid')
-            ->addColumn('address')
+            // ->addColumn('address')
             ->addColumn('collage')
             ->addColumn('fns')
             ->addColumn('department')
             ->addColumn('qualification')
-            ->addColumn('picture')
             ->addColumn('super_status')
             ->addColumn('faculty')
             ->addColumn('school')
@@ -132,7 +136,7 @@ final class SupervisorTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('PHONE', 'phone1')
+            Column::make('CONTACT NO.', 'phone1')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -142,10 +146,10 @@ final class SupervisorTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('ADDRESS', 'address')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
+            // Column::make('ADDRESS', 'address')
+            //     ->sortable()
+            //     ->searchable()
+            //     ->makeInputText(),
 
             Column::make('COLLAGE', 'collage')
                 ->sortable()
@@ -210,11 +214,11 @@ final class SupervisorTable extends PowerGridComponent
         return [
             Button::make('edit', 'Edit')
                 ->class('bg-indigo-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-400 active:bg-indigo-600 focus:outline-none focus:border-indigo-600 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150')
-                ->route('users.edit', ['user' => 'id']),
+                ->route('supervisors.edit', ['supervisor' => 'id']),
 
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150')
-                ->route('users.destroy', ['user' => 'id'])
+                ->route('supervisors.destroy', ['supervisor' => 'id'])
                 ->method('delete')
         ];
     }

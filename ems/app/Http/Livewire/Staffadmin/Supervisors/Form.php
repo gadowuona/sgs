@@ -86,11 +86,11 @@ class Form extends Component
             'picture' => $pictureName,
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('supervisors.index');
     }
 
     public function render()
     {
-        return view('livewire.staffadmin.users.form');
+        return view('livewire.staffadmin.supervisors.form');
     }
 }

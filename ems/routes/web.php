@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserConteroller;
+use App\Http\Controllers\SupervisorConteroller;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,4 +15,4 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::resource('users', UserConteroller::class)->middleware(['auth']);
+Route::resource('supervisors', SupervisorConteroller::class)->middleware(['auth']);

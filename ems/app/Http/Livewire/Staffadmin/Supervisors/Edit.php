@@ -7,12 +7,15 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use WireUi\Traits\Actions;
 
 class Edit extends Component
 {
     use WithFileUploads;
+    use Actions;
 
-    public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty_school, $department, $qualification, $picture;
+    public Supervisor $supervisor;
+    public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty_school, $department, $qualification, $picture, $newpicture;
 
     public function mount($supervisor)
     {
@@ -38,23 +41,22 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'staffid' => 'required|numeric|unique:supervisors',
+            'staffid' => 'required|numeric|unique:supervisors,staffid,' . $this->supervisor->id,
             'first_name' => 'required|max:20',
             'last_name' => 'required|max:20',
             'middle_name' => 'nullable|max:20',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->supervisor->user->id,
             'birthdate' => 'required',
             'gender' => 'required',
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
-            'nid' => 'required|string|max:20|unique:supervisors',
+            'nid' => 'required|string|max:20|unique:supervisors,nid,' . $this->supervisor->id,
             'address' => 'required|string|max:255',
             'collage' => 'required|string|max:255',
             'fns' => 'required|string',
             'faculty_school' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'qualification' => 'required|string|max:255',
-            'picture' => 'required|mimes:webp,jpeg,jpg,png',
         ];
     }
     public function updated($fields)
@@ -65,37 +67,37 @@ class Edit extends Component
     public function save()
     {
         // Validate the fields before updating.
-        $this->validate();
+        $validatedData = $this->validate();
+        if ($this->newpicture) {
+            $this->validate(['newpicture' => 'required|mimes:webp,jpeg,jpg,png']);
+        }
 
+        // handle User Info.
         $name = $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
-        $password = Str::random(8);
+        $this->supervisor->user->name = $name;
+        $this->supervisor->user->email = $this->email;
+        $this->supervisor->user->save();
 
-        // handle picture upload
-        $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->picture->extension();
-        $this->picture->storeAs('supervisor', $pictureName);
+        // handle new picture upload
+        if ($this->newpicture) {
+            $path = base_path('assets\\supervisor\\' . $this->supervisor->picture);
+            if (env('APP_ENV') == 'local') {
+                $path = public_path('assets\\supervisor\\' . $this->supervisor->picture);
+            }
+            unlink($path);
+            $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->newpicture->extension();
+            $this->newpicture->storeAs('supervisor', $pictureName);
+            $this->supervisor->picture = $pictureName;
+            $this->supervisor->save();
+        }
 
-        // create supervisor
-        $supervisor = Supervisor::create([
-            // 'user_id' => $user->id,
-            'staffid' => $this->staffid,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'middle_name' => $this->middle_name,
-            'email' => $this->email,
-            'birthdate' => $this->birthdate,
-            'gender' => $this->gender,
-            'phone1' => $this->phone1,
-            'phone2' => $this->phone2,
-            'nid' => $this->nid,
-            'address' => $this->address,
-            'collage' => $this->collage,
-            'fns' => $this->fns,
-            'faculty_school' => $this->faculty_school,
-            'department' => $this->department,
-            'qualification' => $this->qualification,
-            'picture' => $pictureName,
-        ]);
+        $this->supervisor->update($validatedData);
 
+        $this->notification()->success(
+            $title = 'Profile saved',
+            $description = 'Your profile was successfull saved'
+        );
+        sleep(3);
         return redirect()->route('supervisors.index');
     }
 

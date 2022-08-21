@@ -91,8 +91,10 @@ class Edit extends Component
             $this->supervisor->save();
         }
 
+        // update validated info
         $this->supervisor->update($validatedData);
 
+        // handle notification
         $this->notification()->success(
             $title = 'Profile saved',
             $description = 'Your profile was successfull saved'

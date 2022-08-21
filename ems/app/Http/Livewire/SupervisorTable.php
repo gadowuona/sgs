@@ -95,11 +95,10 @@ final class SupervisorTable extends PowerGridComponent
             // ->addColumn('address')
             ->addColumn('collage')
             ->addColumn('fns')
+            ->addColumn('faculty_school')
             ->addColumn('department')
             ->addColumn('qualification')
             ->addColumn('super_status')
-            ->addColumn('faculty')
-            ->addColumn('school')
             ->addColumn('created_at_formatted', fn (Supervisor $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -161,27 +160,17 @@ final class SupervisorTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
+            Column::make('FACULTY/SCHOOL', 'faculty_school')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
             Column::make('DEPARTMENT', 'department')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
             Column::make('QUALIFICATION', 'qualification')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('SUPER STATUS', 'super_status')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('FACULTY', 'faculty')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('SCHOOL', 'school')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),

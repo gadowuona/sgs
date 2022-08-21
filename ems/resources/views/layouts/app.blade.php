@@ -16,6 +16,8 @@
     @powerGridStyles
 
     <!-- Scripts -->
+    @wireUiScripts
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -40,10 +42,6 @@
     <!-- Scripts -->
     @livewireScripts
     @powerGridScripts
-    @wireUiScripts
-    <!-- <script src="{{ asset('assets/js/alpine.min.js') }}"></script> -->
-    <script src="//unpkg.com/alpinejs" defer></script>
-
 </body>
 
 </html>

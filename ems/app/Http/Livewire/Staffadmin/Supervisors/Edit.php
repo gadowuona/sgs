@@ -3,19 +3,37 @@
 namespace App\Http\Livewire\Staffadmin\Supervisors;
 
 use App\Models\Profile;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Form extends Component
+class Edit extends Component
 {
     use WithFileUploads;
 
     public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty, $department, $qualification, $picture;
 
+    public function mount($supervisor)
+    {
+        $this->staffid = $supervisor->staffid;
+        $this->first_name = $supervisor->first_name;
+        $this->last_name = $supervisor->last_name;
+        $this->middle_name = $supervisor->middle_name;
+        $this->email = $supervisor->user->email;
+        $this->birthdate = $supervisor->birthdate;
+        $this->gender = $supervisor->gender;
+        $this->phone1 = $supervisor->phone1;
+        $this->phone2 = $supervisor->phone2;
+        $this->nid = $supervisor->nid;
+        $this->address = $supervisor->address;
+        $this->collage = $supervisor->collage;
+        $this->fns = $supervisor->fns;
+        $this->faculty = $supervisor->faculty;
+        $this->department = $supervisor->department;
+        $this->qualification = $supervisor->qualification;
+        $this->picture = $supervisor->picture;
+    }
 
     protected function rules()
     {
@@ -56,17 +74,17 @@ class Form extends Component
         $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->picture->extension();
         $this->picture->storeAs('profile', $pictureName);
 
-        // dd($password);
-        // create user
-        $user = User::create([
-            'name' => $name,
-            'email' => $this->email,
-            'password' => Hash::make($password),
-        ]);
+        // // dd($password);
+        // // create user
+        // $user = User::create([
+        //     'name' => $name,
+        //     'email' => $this->email,
+        //     'password' => Hash::make($password),
+        // ]);
 
         // create profile
         $profile = Profile::create([
-            'user_id' => $user->id,
+            // 'user_id' => $user->id,
             'staffid' => $this->staffid,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -88,8 +106,9 @@ class Form extends Component
 
         return redirect()->route('supervisors.index');
     }
+
     public function render()
     {
-        return view('livewire.staffadmin.supervisors.form');
+        return view('livewire.staffadmin.supervisors.edit');
     }
 }

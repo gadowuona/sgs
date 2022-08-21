@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class SupervisorConteroller extends Controller
@@ -56,7 +57,8 @@ class SupervisorConteroller extends Controller
      */
     public function edit($id)
     {
-        //
+        $supervisor = Profile::find($id);
+        return view('staffadmin.supervisors.edit', compact('supervisor'));
     }
 
     /**

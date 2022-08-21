@@ -41,7 +41,7 @@
 
 
 
-            <x-native-select label="Faculty/School" :options="[['value' => '', 'name' => 'Select your College'], 
+            <x-native-select label="Collage" :options="[['value' => '', 'name' => 'Select your College'], 
                 ['value' => 'college of humanities and legal studies', 'name' => 'College of Humanities and Legal Studies'],
                 ['value' => 'college of health and allied sciences', 'name' => 'College of Health and Allied Sciences'],
                 ['value' => 'college of distance education', 'name' => 'College of Distance Education'],
@@ -54,7 +54,7 @@
                 option-label="name" option-value="value" wire:model.defer="fns" />
 
             <x-input label="Faculty/School" type="text" placeholder="Enter your Faculty / School title" required
-                wire:model.defer="faculty" />
+                wire:model.defer="faculty_school" />
 
             <x-input label="Department" type="text" placeholder="Enter Department" required
                 wire:model.defer="department" />

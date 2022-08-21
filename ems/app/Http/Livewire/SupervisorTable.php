@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Profile;
+use App\Models\Supervisor;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
@@ -46,11 +46,11 @@ final class SupervisorTable extends PowerGridComponent
     /**
      * PowerGrid datasource.
      *
-     * @return Builder<\App\Models\Profile>
+     * @return Builder<\App\Models\Supervisor>
      */
     public function datasource(): Builder
     {
-        return Profile::query()->with('user');
+        return Supervisor::query()->with('user');
     }
 
     /*
@@ -84,8 +84,8 @@ final class SupervisorTable extends PowerGridComponent
 
         return PowerGrid::eloquent()
             ->addColumn('staffid')
-            ->addColumn('picture', function (Profile $model) {
-                $path = asset("assets/profile/" . $model->picture);
+            ->addColumn('picture', function (Supervisor $model) {
+                $path = asset("assets/supervisor/" . $model->picture);
                 return '<img class="m-1" src="' . $path . '" />';
             })
             ->addColumn('user.name')
@@ -100,7 +100,7 @@ final class SupervisorTable extends PowerGridComponent
             ->addColumn('super_status')
             ->addColumn('faculty')
             ->addColumn('school')
-            ->addColumn('created_at_formatted', fn (Profile $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Supervisor $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -203,7 +203,7 @@ final class SupervisorTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid Profile Action Buttons.
+     * PowerGrid Supervisor Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -233,7 +233,7 @@ final class SupervisorTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid Profile Action Rules.
+     * PowerGrid Supervisor Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -245,7 +245,7 @@ final class SupervisorTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($profile) => $profile->id === 1)
+                ->when(fn($supervisor) => $supervisor->id === 1)
                 ->hide(),
         ];
     }

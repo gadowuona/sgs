@@ -50,7 +50,7 @@ final class UserTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return User::query()->where('role', 'STF')->with('profile');
+        return User::query()->where('role', 'STF')->with('supervisor');
     }
 
     /*
@@ -85,7 +85,7 @@ final class UserTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('name')
             ->addColumn('name')
-            ->addColumn('profile.nid')
+            ->addColumn('supervisor.nid')
             ->addColumn('created_at_formatted', fn (User $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -119,7 +119,7 @@ final class UserTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('NID', 'profile.nid')
+            Column::make('NID', 'supervisor.nid')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),

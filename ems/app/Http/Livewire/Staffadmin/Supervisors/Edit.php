@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Staffadmin\Supervisors;
 
-use App\Models\Profile;
+use App\Models\Supervisor;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -12,7 +12,7 @@ class Edit extends Component
 {
     use WithFileUploads;
 
-    public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty, $department, $qualification, $picture;
+    public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty_school, $department, $qualification, $picture;
 
     public function mount($supervisor)
     {
@@ -29,7 +29,7 @@ class Edit extends Component
         $this->address = $supervisor->address;
         $this->collage = $supervisor->collage;
         $this->fns = $supervisor->fns;
-        $this->faculty = $supervisor->faculty;
+        $this->faculty_school = $supervisor->faculty_school;
         $this->department = $supervisor->department;
         $this->qualification = $supervisor->qualification;
         $this->picture = $supervisor->picture;
@@ -38,7 +38,7 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'staffid' => 'required|numeric|unique:profiles',
+            'staffid' => 'required|numeric|unique:supervisors',
             'first_name' => 'required|max:20',
             'last_name' => 'required|max:20',
             'middle_name' => 'nullable|max:20',
@@ -47,11 +47,11 @@ class Edit extends Component
             'gender' => 'required',
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
-            'nid' => 'required|string|max:20|unique:profiles',
+            'nid' => 'required|string|max:20|unique:supervisors',
             'address' => 'required|string|max:255',
             'collage' => 'required|string|max:255',
             'fns' => 'required|string',
-            'faculty' => 'required|string|max:255',
+            'faculty_school' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'qualification' => 'required|string|max:255',
             'picture' => 'required|mimes:webp,jpeg,jpg,png',
@@ -72,18 +72,10 @@ class Edit extends Component
 
         // handle picture upload
         $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->picture->extension();
-        $this->picture->storeAs('profile', $pictureName);
+        $this->picture->storeAs('supervisor', $pictureName);
 
-        // // dd($password);
-        // // create user
-        // $user = User::create([
-        //     'name' => $name,
-        //     'email' => $this->email,
-        //     'password' => Hash::make($password),
-        // ]);
-
-        // create profile
-        $profile = Profile::create([
+        // create supervisor
+        $supervisor = Supervisor::create([
             // 'user_id' => $user->id,
             'staffid' => $this->staffid,
             'first_name' => $this->first_name,
@@ -98,7 +90,7 @@ class Edit extends Component
             'address' => $this->address,
             'collage' => $this->collage,
             'fns' => $this->fns,
-            'faculty' => $this->faculty,
+            'faculty_school' => $this->faculty_school,
             'department' => $this->department,
             'qualification' => $this->qualification,
             'picture' => $pictureName,

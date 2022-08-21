@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('supervisors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('staffid')->unique();
@@ -28,13 +28,11 @@ return new class extends Migration
             $table->string('address');
             $table->string('collage');
             $table->enum('fns', ['Faculty', 'School']);
+            $table->string('faculty_school')->nullable();
             $table->string('department');
             $table->string('qualification');
-            $table->text('picture');
-            $table->string('super_status')->nullable();
             $table->date('doa')->nullable();
-            $table->string('faculty')->nullable();
-            $table->string('school')->nullable();
+            $table->text('picture');
             $table->timestamps();
         });
     }
@@ -46,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('supervisors');
     }
 };

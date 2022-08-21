@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Supervisor extends Model
 {
     use HasFactory;
 
@@ -23,13 +23,11 @@ class Profile extends Model
         'address',
         'collage',
         'fns',
+        'faculty_school',
         'department',
         'qualification',
         'picture',
-        'super_status',
         'doa',
-        'faculty',
-        'school',
     ];
 
     public function user()

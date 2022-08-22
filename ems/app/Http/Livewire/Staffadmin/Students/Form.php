@@ -37,7 +37,7 @@ class Form extends Component
         // Validate the fields before updating.
         $this->validate();
 
-        // create supervisor
+        // create Student
         Student::create([
             'index_number' => strtoupper($this->index_number),
             'first_name' => $this->first_name,

@@ -6,7 +6,7 @@
             <x-input label="Thesis/Dissertation Title" type="text" placeholder="Thesis/Dissertation title"
                 wire:model.defer="title" />
 
-            <x-input label="Submission Date" type="date" wire:model.defer="sudmission_date" />
+            <x-input label="Submission Date" type="date" wire:model.defer="submission_date" />
 
             <x-input label="Due Date" type="date" wire:model.defer="due_date" />
 

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class ThesisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('staffadmin.students.index');
+        return view('staffadmin.thesis.index');
     }
 
     /**
@@ -24,7 +23,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('staffadmin.students.create');
+        return view('staffadmin.thesis.create');
     }
 
     /**
@@ -81,16 +80,5 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function users()
-    {
-        return User::all();
     }
 }

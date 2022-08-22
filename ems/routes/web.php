@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SupervisorConteroller;
+use App\Http\Controllers\ThesisController;
 use App\Http\Resources\UserCollection;
+use App\Models\Student;
+use App\Models\Supervisor;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +23,12 @@ Route::get('/dashboard', function () {
 
 Route::resource('supervisors', SupervisorConteroller::class)->middleware(['auth']);
 Route::resource('students', StudentController::class)->middleware(['auth']);
+Route::resource('thesis', ThesisController::class)->middleware(['auth']);
+
+
+Route::get('/all/students', function () {
+    return Student::all();
+})->name('students.all');
 
 
 // Route::get('/users', function () {

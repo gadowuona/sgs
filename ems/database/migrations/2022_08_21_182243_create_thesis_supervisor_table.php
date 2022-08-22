@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('theses', function (Blueprint $table) {
+        Schema::create('thesis_supervisor', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->date('submission_date');
-            $table->date('due_date');
+            $table->foreignId('thesis_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supervisor_id')->constrained()->onDelete('cascade');
+            $table->enum('supervisor_status', ['supervisor', 'co-supervisor']);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('theses');
+        Schema::dropIfExists('thesis_supervisor');
     }
 };

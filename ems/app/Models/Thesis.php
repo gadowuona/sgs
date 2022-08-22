@@ -16,7 +16,7 @@ class Thesis extends Model
         'due_date',
     ];
 
-    public function supervisor()
+    public function supervisors()
     {
         return $this->belongsToMany(Supervisor::class);
     }

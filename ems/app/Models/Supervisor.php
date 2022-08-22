@@ -35,7 +35,7 @@ class Supervisor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function thesis()
+    public function theses()
     {
         return $this->belongsToMany(Thesis::class);
     }

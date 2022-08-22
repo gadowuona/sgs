@@ -20,4 +20,9 @@ class Thesis extends Model
     {
         return $this->belongsToMany(Supervisor::class);
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

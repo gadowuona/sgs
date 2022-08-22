@@ -12,9 +12,9 @@
                     <x-link href="{{ route('thesis.create') }}" class="mb-4">Add Thesis</x-link>
 
                     <!--  -->
-                    <!-- <div>
-                        <livewire:student-table>
-                    </div> -->
+                    <div>
+                        <livewire:thesis-table>
+                    </div>
                 </div>
             </div>
         </div>

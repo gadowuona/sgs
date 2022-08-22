@@ -20,4 +20,9 @@ class Student extends Model
         'phone1',
         'phone2',
     ];
+
+    public function thesis()
+    {
+        return $this->hasMany(Thesis::class);
+    }
 }

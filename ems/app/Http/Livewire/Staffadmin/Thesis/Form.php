@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire\Staffadmin\Thesis;
 
+use App\Mail\ThesisAssignStudent;
+use App\Mail\ThesisAssignSupervisor;
+use App\Models\Student;
 use App\Models\Supervisor;
 use App\Models\Thesis;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -48,10 +52,20 @@ class Form extends Component
         $supervisor = Supervisor::find($this->supervisor);
         $thesis->supervisors()->attach($supervisor);
 
+        // Send Supervisor and co-supervisor An assignment Mail
+        foreach ([$supervisor, $co_supervisor] as $sup) {
+            Mail::to($sup->user->email)->send(new ThesisAssignSupervisor($sup));
+        }
+
+        // send Student an assign email
+        $student = Student::find($this->student);
+        Mail::to($student)->send(new ThesisAssignStudent($student,));
+
+
         // handle notification
         $this->notification()->success(
             $title = 'Thesis Assigned',
-            $description = 'Thesis was successfull assigned to a supervisor'
+            $description = 'Thesis was successfully assigned to a supervisor'
         );
         sleep(3);
 

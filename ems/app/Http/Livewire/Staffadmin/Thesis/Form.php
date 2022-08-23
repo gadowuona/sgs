@@ -6,6 +6,7 @@ use App\Mail\ThesisAssignStudent;
 use App\Mail\ThesisAssignSupervisor;
 use App\Models\Student;
 use App\Models\Supervisor;
+use App\Models\SupervisorThesis;
 use App\Models\Thesis;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -46,20 +47,22 @@ class Form extends Component
         $thesis->due_date = $this->due_date;
         $thesis->save();
 
-        // record row for columns
+        // record new row for supervisor and co_supervisor
         $co_supervisor = Supervisor::find($this->co_supervisor);
         $thesis->supervisors()->attach($co_supervisor, ['supervisor_status' => 'co-supervisor']);
         $supervisor = Supervisor::find($this->supervisor);
         $thesis->supervisors()->attach($supervisor);
 
         // Send Supervisor and co-supervisor An assignment Mail
-        foreach ([$supervisor, $co_supervisor] as $sup) {
-            Mail::to($sup->user->email)->send(new ThesisAssignSupervisor($sup));
+        foreach ($thesis->supervisors as $sup) {
+            $supervisor_thesis = SupervisorThesis::where('thesis_id', $thesis->id)->where('supervisor_id', $sup->id)->first();
+            $supervisor_thesis = SupervisorThesis::find($supervisor_thesis->id);
+            Mail::to($sup->user->email)->send(new ThesisAssignSupervisor($sup, $supervisor_thesis));
         }
 
-        // send Student an assign email
-        $student = Student::find($this->student);
-        Mail::to($student)->send(new ThesisAssignStudent($student,));
+        // // send Student an assign email
+        // $student = Student::find($this->student);
+        // Mail::to($student)->send(new ThesisAssignStudent($student,));
 
 
         // handle notification

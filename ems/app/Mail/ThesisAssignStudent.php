@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,14 +12,16 @@ class ThesisAssignStudent extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public Student $student;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($student)
     {
-        //
+        $this->student = $student;
     }
 
     /**
@@ -28,6 +31,6 @@ class ThesisAssignStudent extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->markdown('mail.thesis-assign-student');
     }
 }

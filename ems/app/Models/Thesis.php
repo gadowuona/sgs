@@ -25,4 +25,9 @@ class Thesis extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function supervisor_thesis()
+    {
+        return $this->hasMany(SupervisorThesis::class);
+    }
 }

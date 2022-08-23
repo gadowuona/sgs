@@ -20,7 +20,7 @@
 
                     <!--  -->
                     <div>
-                        <livewire:staffadmin.supervisors.edit :supervisor="$supervisor" />
+                        <livewire:staffadmin.students.edit :student="$student" />
                     </div>
                 </div>
             </div>

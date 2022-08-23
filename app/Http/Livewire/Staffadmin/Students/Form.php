@@ -10,18 +10,16 @@ class Form extends Component
 {
     use Actions;
 
-    public $index_number, $first_name, $last_name, $middle_name, $email, $programme, $gender, $phone1, $phone2;
+    public $index_number, $full_name, $email, $programme, $gender, $phone1, $phone2;
 
 
     protected function rules()
     {
         return [
             'index_number' => 'required|string|unique:students',
-            'first_name' => 'required|max:20',
-            'last_name' => 'required|max:20',
-            'middle_name' => 'nullable|max:20',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:students',
-            'programme' => 'required|max:255',
+            'programme' => 'required|string|max:255',
             'gender' => 'required',
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
@@ -40,11 +38,9 @@ class Form extends Component
         // create Student
         Student::create([
             'index_number' => strtoupper($this->index_number),
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'middle_name' => $this->middle_name,
+            'full_name' => $this->full_name,
             'email' => $this->email,
-            'programme' => $this->programme,
+            'programme' => strtoupper($this->programme),
             'gender' => $this->gender,
             'phone1' => $this->phone1,
             'phone2' => $this->phone2,
@@ -55,8 +51,7 @@ class Form extends Component
             $title = 'Student saved',
             $description = 'Student\'s details was successfull saved'
         );
-        sleep(3);
-
+        sleep(5);
         return redirect()->route('students.index');
     }
 

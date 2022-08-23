@@ -13,6 +13,17 @@ final class StudentTable extends PowerGridComponent
 {
     use ActionButton;
 
+
+    // public function header(): array
+    // {
+    //     return [
+    //         Button::add('bulk-sold-out')
+    //             ->caption(__('Mark as Sold-out'))
+    //             ->class('cursor-pointer block bg-indigo-500 text-white')
+    //             ->emit('bulkSoldOutEvent', [])
+    //     ];
+    // }
+
     /*
     |--------------------------------------------------------------------------
     |  Features Setup
@@ -84,16 +95,12 @@ final class StudentTable extends PowerGridComponent
         return PowerGrid::eloquent()
             // ->addColumn('id')
             ->addColumn('index_number')
-            ->addColumn('first_name')
-            ->addColumn('middle_name')
-            ->addColumn('last_name')
+            ->addColumn('full_name')
             ->addColumn('email')
             ->addColumn('programme')
             ->addColumn('gender')
             ->addColumn('phone1')
-            ->addColumn('phone2')
             ->addColumn('created_at_formatted', fn (Student $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
-        // ->addColumn('updated_at_formatted', fn (Student $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -121,17 +128,7 @@ final class StudentTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('FIRST NAME', 'first_name')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('MIDDLE NAME', 'middle_name')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('LAST NAME', 'last_name')
+            Column::make('FULL NAME', 'full_name')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -156,20 +153,10 @@ final class StudentTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('PHONE2', 'phone2')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()
                 ->sortable()
                 ->makeInputDatePicker(),
-
-            // Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
-            //     ->searchable()
-            //     ->sortable()
-            //     ->makeInputDatePicker(),
 
         ];
     }
@@ -192,9 +179,9 @@ final class StudentTable extends PowerGridComponent
     public function actions(): array
     {
         return [
-            // Button::make('edit', 'Edit')
-            //     ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-            //     ->route('student.edit', ['student' => 'id']),
+            Button::make('edit', 'Edit')
+                ->class('bg-indigo-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-400 active:bg-indigo-600 focus:outline-none focus:border-indigo-600 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150')
+                ->route('students.edit', ['student' => 'id']),
 
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150')

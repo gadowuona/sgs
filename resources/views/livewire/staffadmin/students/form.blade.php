@@ -6,16 +6,14 @@
         </div> -->
 
         <div class="grid grid-cols-2 gap-5">
-            <x-input label="Index Number" type="text" placeholder="Index Number" required
-                wire:model.defer="index_number" />
-
-            <x-input label="First Name" type="text" placeholder="First Name" required wire:model.defer="first_name" />
-
-            <x-input label="Middle Name" type="text" placeholder="Middle Name" wire:model.defer="middle_name" />
-
-            <x-input label="Last Name" type="text" placeholder="Last Name" required wire:model.defer="last_name" />
+            <div class="col-span-2">
+                <x-input label="Full Name" type="text" placeholder="Full Name" required wire:model.defer="full_name" />
+            </div>
 
             <x-input label="Email" type="email" placeholder="Enter Email" required wire:model.defer="email" />
+
+            <x-input label="Index Number" type="text" placeholder="Index Number" required
+                wire:model.defer="index_number" />
 
             <x-input label="Programme" type="text" required wire:model.defer="programme" />
 

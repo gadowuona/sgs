@@ -56,7 +56,8 @@ class ThesisController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $student = Student::find($id);
+        // return view('staffadmin.students.edit', compact('student'));
     }
 
     /**

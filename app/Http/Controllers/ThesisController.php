@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Thesis;
 use Illuminate\Http\Request;
 
 class ThesisController extends Controller
@@ -56,8 +57,8 @@ class ThesisController extends Controller
      */
     public function edit($id)
     {
-        // $student = Student::find($id);
-        // return view('staffadmin.students.edit', compact('student'));
+        // $thesis = Thesis::find($id);
+        // return view('staffadmin.thesis.edit', compact('thesis'));
     }
 
     /**

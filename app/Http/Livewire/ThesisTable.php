@@ -68,7 +68,11 @@ final class ThesisTable extends PowerGridComponent
      */
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'student' => [
+                'full_name', // column enabled to search
+            ],
+        ];
     }
 
     /*
@@ -83,11 +87,7 @@ final class ThesisTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('title')
-            ->addColumn(
-                'student_name',
-                fn (Thesis $model) =>
-                $model->student->first_name . ' ' . $model->student->middle_name . ' ' . $model->student->last_name
-            )
+            ->addColumn('student.full_name')
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
             ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
@@ -126,9 +126,10 @@ final class ThesisTable extends PowerGridComponent
                 ->sortable()
                 ->makeInputDatePicker(),
 
-            Column::make('STUDENT NAME', 'student_name')
+            Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()
-                ->sortable(),
+                ->sortable()
+                ->makeInputText(),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()
@@ -151,22 +152,23 @@ final class ThesisTable extends PowerGridComponent
      *
      * @return array<int, Button>
      */
-
     /*
+
+
     public function actions(): array
     {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('thesis.edit', ['thesis' => 'id']),
+        return [
+            Button::make('edit', 'Edit')
+                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+                ->route('thesis.edit', ['thesis' => 'id']),
 
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('thesis.destroy', ['thesis' => 'id'])
-               ->method('delete')
+            Button::make('destroy', 'Delete')
+                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+                ->route('thesis.destroy', ['thesis' => 'id'])
+                ->method('delete')
         ];
-    }
-    */
+    }*/
+
 
     /*
     |--------------------------------------------------------------------------

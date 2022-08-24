@@ -19,7 +19,7 @@
 
             <x-input label="Email" type="email" placeholder="Enter Email" required wire:model.defer="email" />
 
-            <x-input label="Birthdate" type="date" required wire:model.defer="birthdate" />
+            <x-input label="Birthdate" type="date" wire:model.defer="birthdate" />
 
             <x-native-select label="Gender"
                 :options="[['value' => '', 'name' => 'select one'], ['value' => 'male', 'name' => 'Male'],['value' => 'female', 'name' => 'Female']]"
@@ -38,8 +38,6 @@
             <div class="col-span-2">
                 <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
             </div>
-
-
 
             <x-native-select label="Faculty/School" :options="[['value' => '', 'name' => 'Select your College'], 
                 ['value' => 'college of humanities and legal studies', 'name' => 'College of Humanities and Legal Studies'],
@@ -63,7 +61,8 @@
                 wire:model.defer="qualification" />
 
             <div class="">
-                <input label="Picture" type="file" wire:model.defer="newpicture" />
+                <x-auth-label for="picture" :value="__('Picture')" />
+                <x-auth-input type="file" wire:model.defer="newpicture" />
                 <div class="mb-4">
                     @if($newpicture)
                     <img src="{{$newpicture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
@@ -72,9 +71,10 @@
                     @endif
                 </div>
             </div>
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button rose type="submit" spinner="save" :label="__('Update')" />
-            </div>
+        <div class="flex items-center justify-end mt-4">
+            <x-button rose type="submit" spinner="save" :label="__('Update')" />
+        </div>
     </form>
 </div>

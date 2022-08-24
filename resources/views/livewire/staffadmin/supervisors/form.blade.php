@@ -28,7 +28,7 @@
 
             <x-input label="Email" type="email" placeholder="Enter Email" required wire:model.defer="email" />
 
-            <x-input label="Birthdate" type="date" required wire:model.defer="birthdate" />
+            <x-input label="Birthdate" type="date" wire:model.defer="birthdate" />
 
             <x-native-select label="Gender"
                 :options="[['value' => '', 'name' => 'select one'], ['value' => 'male', 'name' => 'Male'],['value' => 'female', 'name' => 'Female']]"
@@ -69,16 +69,17 @@
                 wire:model.defer="qualification" />
 
             <div class="">
-                <input label="Picture" type="file" wire:model.defer="picture" required />
+                <x-auth-label for="picture" :value="__('Picture')" />
+                <x-auth-input type="file" wire:model.defer="picture" class="w-full mb-4" />
                 @if($picture)
-                <div class="mb-4">
+                <div class=" mb-4">
                     <img src="{{$picture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
                 </div>
                 @endif
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button rose type="submit" spinner="submit" :label="__('Submit')" />
-            </div>
+        </div>
+        <div class="flex items-center justify-end mt-4">
+            <x-button rose type="submit" spinner="submit" :label="__('Submit')" />
+        </div>
     </form>
 </div>

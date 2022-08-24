@@ -28,7 +28,7 @@ class Form extends Component
             'last_name' => 'required|max:20',
             'middle_name' => 'nullable|max:20',
             'email' => 'required|string|email|max:255|unique:users',
-            'birthdate' => 'required',
+            'birthdate' => 'nullable|date',
             'gender' => 'required',
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
@@ -39,7 +39,7 @@ class Form extends Component
             'faculty_school' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'qualification' => 'required|string|max:255',
-            'picture' => 'required|mimes:webp,jpeg,jpg,png',
+            'picture' => 'nullable|mimes:webp,jpeg,jpg,png',
         ];
     }
     public function updated($fields)
@@ -53,7 +53,10 @@ class Form extends Component
         $this->validate();
 
         // handle name and password genreate
-        $name = $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        $name = $this->first_name . ' ' . $this->last_name;
+        if ($this->middle_name) {
+            $name = $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        }
         $password = Str::random(8);
 
         // handle picture upload

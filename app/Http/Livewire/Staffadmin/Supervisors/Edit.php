@@ -46,7 +46,7 @@ class Edit extends Component
             'last_name' => 'required|max:20',
             'middle_name' => 'nullable|max:20',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->supervisor->user->id,
-            'birthdate' => 'required',
+            'birthdate' => 'nullable|date',
             'gender' => 'required',
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
@@ -57,6 +57,7 @@ class Edit extends Component
             'faculty_school' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'qualification' => 'required|string|max:255',
+            'newpicture' => 'nullable|mimes:webp,jpeg,jpg,png',
         ];
     }
     public function updated($fields)
@@ -73,7 +74,10 @@ class Edit extends Component
         }
 
         // handle User Info.
-        $name = $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        $name = $this->first_name . ' ' . $this->last_name;
+        if ($this->middle_name) {
+            $name = $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        }
         $this->supervisor->user->name = $name;
         $this->supervisor->user->email = $this->email;
         $this->supervisor->user->save();
@@ -99,7 +103,8 @@ class Edit extends Component
             $title = 'Supervisor updated',
             $description = 'Supervisors details was successfull updated'
         );
-        sleep(3);
+        sleep(5);
+
         return redirect()->route('supervisors.index');
     }
 

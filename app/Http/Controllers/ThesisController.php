@@ -58,7 +58,6 @@ class ThesisController extends Controller
     public function edit($id)
     {
         $thesis = Thesis::find($id);
-        dd($thesis->supervisors[0]->user->name);
         return view('staffadmin.thesis.edit', compact('thesis'));
     }
 

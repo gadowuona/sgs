@@ -9,9 +9,12 @@ use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
+
 final class ThesisTable extends PowerGridComponent
 {
     use ActionButton;
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -90,6 +93,8 @@ final class ThesisTable extends PowerGridComponent
             ->addColumn('student.full_name')
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
+            ->addColumn('complete_status')
+            ->addColumn('payment_status')
             ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -128,8 +133,17 @@ final class ThesisTable extends PowerGridComponent
 
             Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()
+                ->sortable(),
+
+            Column::make('COMPLETED STATUS', 'complete_status')
                 ->sortable()
-                ->makeInputText(),
+                ->searchable(),
+            // ->makeInputText(),
+
+            Column::make('PAYMENT STATUS', 'payment_status')
+                ->sortable()
+                ->searchable(),
+            // ->makeInputSelect(Thesis::all(), 'payment_status'),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()

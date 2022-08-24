@@ -12,7 +12,7 @@
 
             <x-select label="Student Index Number" wire:model.defer="student" placeholder="Select a student"
                 :async-data="route('api.student')" option-label="index_number" option-value="id"
-                option-description="name" />
+                option-description="full_name" />
 
         </div>
         <div class="my-4 text-xl font-semibold text-gray-700">

@@ -16,13 +16,14 @@ class Form extends Component
 {
     use WithFileUploads;
 
-    public $staffid, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty_school, $department, $qualification, $picture;
+    public $staffid, $title, $first_name, $last_name, $middle_name, $email, $birthdate, $gender, $phone1, $phone2, $nid, $address, $collage, $fns, $faculty_school, $department, $qualification, $picture;
 
 
     protected function rules()
     {
         return [
             'staffid' => 'required|numeric|unique:supervisors',
+            'title' => 'required',
             'first_name' => 'required|max:20',
             'last_name' => 'required|max:20',
             'middle_name' => 'nullable|max:20',
@@ -70,6 +71,7 @@ class Form extends Component
         $supervisor = Supervisor::create([
             'user_id' => $user->id,
             'staffid' => $this->staffid,
+            'title' => $this->title,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'middle_name' => $this->middle_name,

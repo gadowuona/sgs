@@ -9,6 +9,17 @@
             <x-input label="Staff ID" type="text" placeholder="Staff ID" name="staffid" required
                 wire:model.defer="staffid" />
 
+            <x-native-select label="Title" :options="[
+                    ['value' => '', 'name' => 'select one'], 
+                    ['value' => 'Prof.', 'name' => 'Prof'],
+                    ['value' => 'Dr.', 'name' => 'Dr'],
+                    ['value' => 'Rev.', 'name' => 'Rev'],
+                    ['value' => 'Mr.', 'name' => 'Mr'],
+                    ['value' => 'Mrs.', 'name' => 'Mrs'],
+                    ['value' => 'Miss', 'name' => 'Miss'],
+                    ['value' => 'Ms.', 'name' => 'Ms']]" option-label="name" option-value="value"
+                wire:model.defer="title" />
+
             <x-input label="First Name" type="text" placeholder="First Name" required wire:model.defer="first_name" />
 
             <x-input label="Middle Name" type="text" placeholder="Middle Name" wire:model.defer="middle_name" />
@@ -33,10 +44,7 @@
             <x-inputs.maskable label="ID Number (Ghana Card Only)" mask="AAA-#########-#" placeholder="GHA-000000000-0"
                 required wire:model.defer="nid" />
 
-            <div class="col-span-2">
-                <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
-            </div>
-
+            <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
 
 
             <x-native-select label="Collage" :options="[['value' => '', 'name' => 'Select your College'], 

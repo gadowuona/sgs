@@ -60,9 +60,9 @@ class Form extends Component
             Mail::to($sup->user->email)->send(new ThesisAssignSupervisor($sup, $supervisor_thesis));
         }
 
-        // // send Student an assign email
-        // $student = Student::find($this->student);
-        // Mail::to($student)->send(new ThesisAssignStudent($student,));
+        // send Student an assign email
+        $student = Student::find($this->student);
+        Mail::to($student->email)->send(new ThesisAssignStudent($student,));
 
 
         // handle notification

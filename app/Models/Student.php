@@ -21,6 +21,6 @@ class Student extends Model
 
     public function thesis()
     {
-        return $this->hasMany(Thesis::class);
+        return $this->hasOne(Thesis::class);
     }
 }

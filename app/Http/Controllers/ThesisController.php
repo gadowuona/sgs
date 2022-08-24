@@ -46,7 +46,8 @@ class ThesisController extends Controller
      */
     public function show($id)
     {
-        //
+        $thesis = Thesis::find($id);
+        return view('staffadmin.thesis.show', compact('thesis'));
     }
 
     /**

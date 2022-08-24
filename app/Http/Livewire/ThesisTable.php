@@ -31,7 +31,7 @@ final class ThesisTable extends PowerGridComponent
             Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()->showSearchInput()->showToggleColumns(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -53,7 +53,7 @@ final class ThesisTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Thesis::query()->with('student');
+        return Thesis::query()->with(['student', 'supervisors']);
     }
 
     /*
@@ -75,6 +75,11 @@ final class ThesisTable extends PowerGridComponent
             'student' => [
                 'full_name', // column enabled to search
             ],
+            'supervisors' => [
+                'user' => [
+                    'name'
+                ]
+            ],
         ];
     }
 
@@ -90,9 +95,15 @@ final class ThesisTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('title')
-            ->addColumn('student.full_name')
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
+            ->addColumn('student.full_name')
+            ->addColumn('supervisor', function (Thesis $model) {
+                return  $model->supervisors[1]->user->name;
+            })
+            ->addColumn('co_supervisor', function (Thesis $model) {
+                return  $model->supervisors[0]->user->name;
+            })
             ->addColumn('complete_status')
             ->addColumn('payment_status')
             ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
@@ -131,6 +142,14 @@ final class ThesisTable extends PowerGridComponent
                 ->sortable()
                 ->makeInputDatePicker(),
 
+            Column::make('SUPERVISOR', 'supervisor')
+                ->searchable()
+                ->sortable(),
+
+            Column::make('CO SUPERVISOR', 'co_supervisor')
+                ->searchable()
+                ->sortable(),
+
             Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()
                 ->sortable(),
@@ -138,12 +157,10 @@ final class ThesisTable extends PowerGridComponent
             Column::make('COMPLETED STATUS', 'complete_status')
                 ->sortable()
                 ->searchable(),
-            // ->makeInputText(),
 
             Column::make('PAYMENT STATUS', 'payment_status')
                 ->sortable()
                 ->searchable(),
-            // ->makeInputSelect(Thesis::all(), 'payment_status'),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()
@@ -166,7 +183,7 @@ final class ThesisTable extends PowerGridComponent
      *
      * @return array<int, Button>
      */
-    /*
+
 
 
     public function actions(): array
@@ -174,15 +191,14 @@ final class ThesisTable extends PowerGridComponent
         return [
             Button::make('edit', 'Edit')
                 ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-                ->route('thesis.edit', ['thesis' => 'id']),
+                ->route('thesis.edit', ['thesi' => 'id']),
 
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-                ->route('thesis.destroy', ['thesis' => 'id'])
+                ->route('thesis.destroy', ['thesi' => 'id'])
                 ->method('delete')
         ];
-    }*/
-
+    }
 
     /*
     |--------------------------------------------------------------------------

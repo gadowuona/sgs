@@ -15,4 +15,9 @@ class SupervisorThesis extends Model
     {
         return $this->belongsTo(Thesis::class);
     }
+
+    public function supervisors()
+    {
+        return $this->belongsTo(Supervisor::class);
+    }
 }

@@ -84,7 +84,7 @@ class SupervisorConteroller extends Controller
     {
         $supervisor = Supervisor::findOrFail($id);
         $supervisor->delete();
-
-        return back()->withInput();;
+        session()->flash('message', 'Supervisor Infomation has been deleted succefully');
+        return back()->withInput();
     }
 }

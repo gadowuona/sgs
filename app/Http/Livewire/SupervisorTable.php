@@ -50,7 +50,7 @@ final class SupervisorTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Supervisor::query()->with('user');
+        return Supervisor::query()->with('user')->orderBy('created_at','DESC');
     }
 
     /*

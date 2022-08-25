@@ -9,8 +9,14 @@
         <div class="container mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <!--  -->
                     <x-link href="{{ route('thesis.create') }}" class="mb-4">Assign Thesis / Dissertation</x-link>
 
+                    @if(Session::has('message'))
+                            <div class=""> {{Session::get('message')}}
+                              
+                            </div>
+                            @endif
                     <!--  -->
                     <div>
                         <livewire:thesis-table>

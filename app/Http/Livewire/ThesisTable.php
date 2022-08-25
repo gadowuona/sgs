@@ -54,7 +54,7 @@ final class ThesisTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Thesis::query()->with(['student', 'supervisors']);
+        return Thesis::query()->with(['student', 'supervisors'])->orderBy('created_at','DESC');
     }
 
     /*

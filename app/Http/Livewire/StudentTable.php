@@ -61,7 +61,7 @@ final class StudentTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Student::query();
+        return Student::query()->orderBy('created_at','DESC');
     }
 
     /*

@@ -126,7 +126,7 @@ final class SupervisorTable extends PowerGridComponent
 
             Column::make('PICTURE', 'picture'),
 
-            Column::make('NAME', 'title')
+            Column::make('Title', 'title')
                 ->sortable()
                 ->searchable(),
 

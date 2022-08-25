@@ -126,7 +126,7 @@ final class SupervisorTable extends PowerGridComponent
         return [
 
             Column::make('STAFFID', 'staffid')
-                ->makeInputRange(),
+                ->makeInputText(),
 
             Column::make('PICTURE', 'picture'),
 

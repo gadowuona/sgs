@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Thesis;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
-class ThesisController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class ThesisController extends Controller
      */
     public function index()
     {
-        return view('staffadmin.thesis.index');
+        return view('admin.user.index');
     }
 
     /**
@@ -24,7 +26,7 @@ class ThesisController extends Controller
      */
     public function create()
     {
-        return view('staffadmin.thesis.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -35,7 +37,21 @@ class ThesisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'string'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -46,8 +62,7 @@ class ThesisController extends Controller
      */
     public function show($id)
     {
-        $thesis = Thesis::find($id);
-        return view('staffadmin.thesis.show', compact('thesis'));
+        //
     }
 
     /**
@@ -58,8 +73,7 @@ class ThesisController extends Controller
      */
     public function edit($id)
     {
-        $thesis = Thesis::find($id);
-        return view('staffadmin.thesis.edit', compact('thesis'));
+        //
     }
 
     /**

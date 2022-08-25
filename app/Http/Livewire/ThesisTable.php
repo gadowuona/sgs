@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Thesis;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
@@ -94,7 +95,11 @@ final class ThesisTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('title')
+            ->addColumn('title_excerpt', function (Thesis $model) {
+                $title = Str::words($model->title, 8); //Gets the first 8 words
+                $url = route('thesis.show', ['thesi' => $model->id]);
+                return '<a class="m-1 text-indigo-400 underline" href="' . $url . '" />' . $title . '</a>';
+            })
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
             ->addColumn('student.full_name')
@@ -127,7 +132,7 @@ final class ThesisTable extends PowerGridComponent
     {
         return [
 
-            Column::make('TITLE', 'title')
+            Column::make('TITLE', 'title_excerpt')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),

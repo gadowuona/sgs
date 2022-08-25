@@ -1,20 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Thesis / Dissertation ') }}
+            {{ __('Users') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="container mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <!--  -->
-                    <x-back-link href="{{ route('thesis.index') }}" class="mb-4 ">back</x-back-link>
+                    <x-link href="{{ route('users.create') }}" class="mb-4">Add User</x-link>
 
                     <!--  -->
                     <div>
-                        <livewire:staffadmin.thesis.edit :thesis="$thesis" />
+                        <livewire:user-table>
                     </div>
                 </div>
             </div>

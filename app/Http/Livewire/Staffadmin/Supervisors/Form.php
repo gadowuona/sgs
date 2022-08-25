@@ -60,6 +60,7 @@ class Form extends Component
         $password = Str::random(8);
 
         // handle picture upload
+        $pictureName= null;
         if ($this->picture) {
             $pictureName = Str::random(8) . Carbon::now()->timestamp . '.' . $this->picture->extension();
             $this->picture->storeAs('supervisor', $pictureName);

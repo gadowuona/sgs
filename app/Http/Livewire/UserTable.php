@@ -50,7 +50,7 @@ final class UserTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return User::query()->where('role', '!=', 'ADM')->where('role', '!=', 'STF');
+        return User::query()->where('role', '!=', 'ADM')->where('role', '!=', 'STF')->orderBy('created_at','DESC');
     }
 
     /*

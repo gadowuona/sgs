@@ -82,6 +82,9 @@ class ThesisController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $thesis = Thesis::findOrFail($id);
+        $thesis->delete();
+        session()->flash('message', 'Thesis has been deleted succefully');
+        return back()->withInput();
     }
 }

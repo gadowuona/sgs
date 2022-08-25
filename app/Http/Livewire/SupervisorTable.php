@@ -50,7 +50,7 @@ final class SupervisorTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Supervisor::query()->with('user');
+        return Supervisor::query()->with('user')->orderBy('created_at','DESC');
     }
 
     /*
@@ -68,7 +68,11 @@ final class SupervisorTable extends PowerGridComponent
      */
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'user' => [
+                'name', 'email'
+            ]
+        ];
     }
 
     /*
@@ -147,38 +151,29 @@ final class SupervisorTable extends PowerGridComponent
 
             Column::make('NID', 'nid')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
-            // Column::make('ADDRESS', 'address')
-            //     ->sortable()
-            //     ->searchable()
-            //     ->makeInputText(),
+           
 
             Column::make('COLLAGE', 'collage')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('Faculty/School', 'fns')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('FACULTY/SCHOOL', 'faculty_school')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('DEPARTMENT', 'department')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('QUALIFICATION', 'qualification')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()

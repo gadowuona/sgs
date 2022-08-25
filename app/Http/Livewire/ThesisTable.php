@@ -54,7 +54,7 @@ final class ThesisTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Thesis::query()->with(['student', 'supervisors']);
+        return Thesis::query()->with(['student', 'supervisors'])->orderBy('created_at','DESC');
     }
 
     /*
@@ -139,13 +139,11 @@ final class ThesisTable extends PowerGridComponent
 
             Column::make('SUBMISSION DATE', 'submission_date_formatted', 'submission_date')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker(),
+                ->sortable(),
 
             Column::make('DUE DATE', 'due_date_formatted', 'due_date')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker(),
+                ->sortable(),
 
             Column::make('SUPERVISOR', 'supervisor')
                 ->searchable()

@@ -14,7 +14,7 @@ class Actions extends Component
         $thesis = Thesis::find($thesis_id);
         $thesis->complete_status = $status;
         $thesis->save();
-        session()->flash('message', 'Thesis Payment status has been updated succefully');
+        session()->flash('message', 'Thesis completion status has been updated succefully');
         return redirect()->route('thesis.show', $thesis->id);
     }
 

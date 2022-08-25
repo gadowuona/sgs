@@ -36,7 +36,7 @@
                 required wire:model.defer="nid" />
 
             <div class="col-span-2">
-                <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
+                <x-textarea label="Address" placeholder="Enter Address" wire:model.defer="address" />
             </div>
 
             <x-native-select label="Faculty/School" :options="[['value' => '', 'name' => 'Select your College'], 

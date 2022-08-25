@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('first_name', 20);
             $table->string('middle_name')->nullable();
             $table->string('last_name', 20);
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->string('phone1', 15)->nullable();
             $table->string('phone2', 15)->nullable();

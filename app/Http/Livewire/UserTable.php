@@ -50,7 +50,7 @@ final class UserTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return User::query()->where('role', 'STF')->with('supervisor');
+        return User::query()->where('role', '!=', 'ADM')->where('role', '!=', 'STF');
     }
 
     /*
@@ -85,7 +85,7 @@ final class UserTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('name')
             ->addColumn('name')
-            ->addColumn('supervisor.nid')
+            ->addColumn('role')
             ->addColumn('created_at_formatted', fn (User $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -119,7 +119,7 @@ final class UserTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('NID', 'supervisor.nid')
+            Column::make('Role', 'role')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -150,10 +150,9 @@ final class UserTable extends PowerGridComponent
     public function actions(): array
     {
         return [
-            Button::make('edit', 'Edit')
-                ->class('bg-indigo-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-400 active:bg-indigo-600 focus:outline-none focus:border-indigo-600 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150')
-                ->route('users.edit', ['user' => 'id']),
-
+            // Button::make('edit', 'Edit')
+            //     ->class('bg-indigo-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-400 active:bg-indigo-600 focus:outline-none focus:border-indigo-600 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150')
+            //     ->route('users.edit', ['user' => 'id']),
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer m-1 inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150')
                 ->route('users.destroy', ['user' => 'id'])

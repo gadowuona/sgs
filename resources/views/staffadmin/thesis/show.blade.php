@@ -11,9 +11,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!--  -->
                     <x-back-link href="{{ route('thesis.index') }}" class="mb-4">back</x-back-link>
-
                     <!--  -->
                     <div>
+                        <div>
+                            <livewire:staffadmin.thesis.actions :thesis="$thesis" />
+                        </div>
                         <x-card title="{{$thesis->title}}">
                             <div class="grid grid-cols-3 gap-5 mt-4">
                                 <div>

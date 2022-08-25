@@ -33,7 +33,7 @@ class Form extends Component
             'phone1' => 'required|max:15',
             'phone2' => 'nullable|max:15',
             'nid' => 'required|string|max:20|unique:supervisors',
-            'address' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
             'collage' => 'required|string|max:255',
             'fns' => 'required|string',
             'faculty_school' => 'required|string|max:255',

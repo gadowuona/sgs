@@ -46,11 +46,11 @@ class Edit extends Component
         $this->thesis->update($validatedData);
 
         // handle notification
-        $this->notification()->success(
-            $title = 'Thesis Assigned',
-            $description = 'Thesis infomation was successfully updated '
-        );
-        sleep(5);
+        // $this->notification()->success(
+        //     $title = 'Thesis Assigned',
+        //     $description = 'Thesis infomation was successfully updated '
+        // );
+        // sleep(5);
 
         return redirect()->route('thesis.index');
     }

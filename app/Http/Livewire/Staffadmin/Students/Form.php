@@ -46,12 +46,12 @@ class Form extends Component
             'phone2' => $this->phone2,
         ]);
 
-        // handle notification
-        $this->notification()->success(
-            $title = 'Student saved',
-            $description = 'Student\'s details was successfull saved'
-        );
-        sleep(5);
+        // // handle notification
+        // $this->notification()->success(
+        //     $title = 'Student saved',
+        //     $description = 'Student\'s details was successfull saved'
+        // );
+        // sleep(5);
         return redirect()->route('students.index');
     }
 

@@ -51,11 +51,11 @@ class Edit extends Component
         $this->student->update($validatedData);
 
         // handle notification
-        $this->notification()->success(
-            $title = 'Student saved',
-            $description = 'Student\'s details was successfull updated'
-        );
-        sleep(5);
+        // $this->notification()->success(
+        //     $title = 'Student saved',
+        //     $description = 'Student\'s details was successfull updated'
+        // );
+        // sleep(5);
         return redirect()->route('students.index');
     }
 

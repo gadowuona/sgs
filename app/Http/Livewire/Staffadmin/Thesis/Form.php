@@ -62,15 +62,15 @@ class Form extends Component
 
         // send Student an assign email
         $student = Student::find($this->student);
-        Mail::to($student->email)->send(new ThesisAssignStudent($student,));
+        Mail::to($student->email)->send(new ThesisAssignStudent($student));
 
 
         // handle notification
-        $this->notification()->success(
-            $title = 'Thesis Assigned',
-            $description = 'Thesis was successfully assigned to a supervisor'
-        );
-        sleep(3);
+        // $this->notification()->success(
+        //     $title = 'Thesis Assigned',
+        //     $description = 'Thesis was successfully assigned to a supervisor'
+        // );
+        // sleep(3);
 
         return redirect()->route('thesis.index');
     }

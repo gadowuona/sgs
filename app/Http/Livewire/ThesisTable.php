@@ -95,6 +95,7 @@ final class ThesisTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
+        ->addColumn('id')
             ->addColumn('title_excerpt', function (Thesis $model) {
                 $title = Str::words($model->title, 8); //Gets the first 8 words
                 $url = route('thesis.show', ['thesi' => $model->id]);
@@ -104,11 +105,17 @@ final class ThesisTable extends PowerGridComponent
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
             ->addColumn('student.full_name')
             ->addColumn('supervisor', function (Thesis $model) {
-                return  $model->supervisors[1]->user->name;
+                return view('livewire.staffadmin.thesis.super',['thesis' => $model]);
             })
-            ->addColumn('co_supervisor', function (Thesis $model) {
-                return  $model->supervisors[0]->user->name;
-            })
+            // ->addColumn('supervisor', function (Thesis $model) {
+            //     if(isset($model->supervisors[1])){
+            //         $superv
+            //     }
+            //     return  $model->supervisors[1]->user->name;
+            // })
+            // ->addColumn('co_supervisor', function (Thesis $model) {
+            //     return  $model->supervisors[0]->user->name;
+            // })
             ->addColumn('complete_status')
             ->addColumn('payment_status')
             ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
@@ -131,6 +138,8 @@ final class ThesisTable extends PowerGridComponent
     public function columns(): array
     {
         return [
+            Column::make('ID', 'id')
+            ->makeInputText(),
 
             Column::make('TITLE', 'title_excerpt')
                 ->sortable()
@@ -145,13 +154,13 @@ final class ThesisTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make('SUPERVISOR', 'supervisor')
+            Column::make('SUPERVISORS', 'supervisor')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('CO SUPERVISOR', 'co_supervisor')
-                ->searchable()
-                ->sortable(),
+            // Column::make('CO SUPERVISOR', 'co_supervisor')
+            //     ->searchable()
+            //     ->sortable(),
 
             Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()

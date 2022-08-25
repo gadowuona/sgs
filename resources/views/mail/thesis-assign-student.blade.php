@@ -1,6 +1,6 @@
 @component('mail::message')
 
-# hello, {{$student->name}}
+# hello, {{$student->full_name}}
 Your thesis / dessertation has have been assigned to a supervisor and a co-supervisor. Below are details about your
 theses:
 

@@ -24,7 +24,6 @@ Route::middleware(['auth','authstaffcheck'])->group(function () {
 Route::resource('supervisors', SupervisorConteroller::class);
 Route::resource('students', StudentController::class);
 Route::resource('thesis', ThesisController::class);
-
 });
 // Admin Routes 
 Route::middleware(['auth','authcheck'])->group(function () {

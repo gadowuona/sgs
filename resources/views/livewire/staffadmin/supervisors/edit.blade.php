@@ -62,7 +62,7 @@
 
             <div class="">
                 <x-auth-label for="picture" :value="__('Picture')" />
-                <x-auth-input type="file" wire:model.defer="newpicture" />
+                <input type="file" wire:model.defer="newpicture" />
                 <div class="mb-4">
                     @if($newpicture)
                     <img src="{{$newpicture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">

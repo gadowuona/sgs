@@ -25,14 +25,14 @@ return new class extends Migration
             $table->string('phone1', 15)->nullable();
             $table->string('phone2', 15)->nullable();
             $table->string('nid')->unique();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('collage');
             $table->enum('fns', ['Faculty', 'School']);
             $table->string('faculty_school')->nullable();
             $table->string('department');
             $table->string('qualification');
             $table->date('doa')->nullable();
-            $table->text('picture');
+            $table->text('picture')->nullable();
             $table->timestamps();
         });
     }

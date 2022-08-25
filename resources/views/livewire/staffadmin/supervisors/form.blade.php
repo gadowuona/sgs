@@ -44,7 +44,7 @@
             <x-inputs.maskable label="ID Number (Ghana Card Only)" mask="AAA-#########-#" placeholder="GHA-000000000-0"
                 required wire:model.defer="nid" />
 
-            <x-textarea label="Address" placeholder="Enter Address" required wire:model.defer="address" />
+            <x-textarea label="Address" placeholder="Enter Address" wire:model.defer="address" />
 
 
             <x-native-select label="Collage" :options="[['value' => '', 'name' => 'Select your College'], 
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="flex items-center justify-end mt-4">
-            <x-button rose type="submit" spinner="submit" :label="__('Submit')" />
+            <x-button rose type="submit" spinner="save" :label="__('Submit')" />
         </div>
     </form>
 </div>

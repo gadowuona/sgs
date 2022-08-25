@@ -67,12 +67,8 @@ class Form extends Component
         Mail::to($student->email)->send(new ThesisAssignStudent($student));
 
 
-        // handle notification
-        // $this->notification()->success(
-        //     $title = 'Thesis Assigned',
-        //     $description = 'Thesis was successfully assigned to a supervisor'
-        // );
-        // sleep(3);
+        
+        session()->flash('message', 'Thesis was successfully assigned to a supervisor');
 
         return redirect()->route('thesis.index');
     }

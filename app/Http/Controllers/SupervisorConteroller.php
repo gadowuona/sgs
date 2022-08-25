@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Supervisor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SupervisorConteroller extends Controller
@@ -83,7 +84,10 @@ class SupervisorConteroller extends Controller
     public function destroy($id)
     {
         $supervisor = Supervisor::findOrFail($id);
+        $user_id = $supervisor->user->id;
         $supervisor->delete();
+        $user = User::findOrFail($user_id);
+        $user->delete();
         session()->flash('message', 'Supervisor Infomation has been deleted succefully');
         return back()->withInput();
     }

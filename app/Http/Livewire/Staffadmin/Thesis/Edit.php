@@ -45,12 +45,7 @@ class Edit extends Component
         // update validated info
         $this->thesis->update($validatedData);
 
-        // handle notification
-        // $this->notification()->success(
-        //     $title = 'Thesis Assigned',
-        //     $description = 'Thesis infomation was successfully updated '
-        // );
-        // sleep(5);
+        session()->flash('message', 'Thesis infomation was successfully updated !');
 
         return redirect()->route('thesis.index');
     }

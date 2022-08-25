@@ -49,13 +49,9 @@ class Form extends Component
 
         // TODO:: send mail to user info
 
-        // handle notification
-        // $this->notification()->success(
-        //     $title = 'Thesis Assigned',
-        //     $description = 'User was successfully saved'
-        // );
-        // sleep(3);
+       
 
+        session()->flash('message', 'User was successfully saved');
         return redirect()->route('users.index');
     }
 

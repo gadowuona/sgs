@@ -13,6 +13,11 @@
                     <x-back-link href="{{ route('thesis.index') }}" class="mb-4 ">back</x-back-link>
 
                     <!--  -->
+                    @if(Session::has('message'))
+                    <x-alert-success>{{Session::get('message')}}</x-alert-success>
+                    @endif
+                    
+                    <!--  -->
                     <div>
                         <livewire:staffadmin.thesis.edit :thesis="$thesis" />
                     </div>

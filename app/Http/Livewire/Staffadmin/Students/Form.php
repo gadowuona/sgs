@@ -46,12 +46,7 @@ class Form extends Component
             'phone2' => $this->phone2,
         ]);
 
-        // // handle notification
-        // $this->notification()->success(
-        //     $title = 'Student saved',
-        //     $description = 'Student\'s details was successfull saved'
-        // );
-        // sleep(5);
+        session()->flash('message', 'Student\'s details was successfull updated');
         return redirect()->route('students.index');
     }
 

@@ -98,12 +98,7 @@ class Edit extends Component
         // update validated info
         $this->supervisor->update($validatedData);
 
-        // handle notification
-        // $this->notification()->success(
-        //     $title = 'Supervisor updated',
-        //     $description = 'Supervisors details was successfull updated'
-        // );
-        // sleep(5);
+        session()->flash('message', 'Supervisors details was successfull updated');
 
         return redirect()->route('supervisors.index');
     }

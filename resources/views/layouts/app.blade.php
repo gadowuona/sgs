@@ -43,6 +43,13 @@
     <!-- Scripts -->
     @livewireScripts
     @powerGridScripts
+
+    <script>
+    $("#closealertbutton").click(function(e) {
+        e.preventDefault();
+        pid = $(this).parent().parent().hide(500)
+    })
+    </script>
 </body>
 
 </html>

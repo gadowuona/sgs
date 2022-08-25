@@ -120,9 +120,6 @@ final class StudentTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            // Column::make('ID', 'id')
-            //     ->makeInputRange(),
-
             Column::make('INDEX NUMBER', 'index_number')
                 ->sortable()
                 ->searchable()
@@ -140,13 +137,11 @@ final class StudentTable extends PowerGridComponent
 
             Column::make('PROGRAMME', 'programme')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('GENDER', 'gender')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
 
             Column::make('PHONE1', 'phone1')
                 ->sortable()

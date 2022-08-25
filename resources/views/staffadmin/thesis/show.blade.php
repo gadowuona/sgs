@@ -120,10 +120,7 @@
                                         class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-primary-500 text-white bg-primary-500 hover:bg-primary-600 hover:ring-primary-600 dark:ring-offset-slate-800 dark:bg-primary-700 dark:ring-primary-700 dark:hover:bg-primary-600 dark:hover:ring-primary-600 uppercase font-semibold">
                                         Edit
                                     </a>
-                                    <a href="{{ route('thesis.destroy',['thesi'=>$thesis->id])}} " type="button"
-                                        class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm font-semibold px-4 py-2     ring-negative-600 text-negative-600 hover:bg-negative-100 dark:ring-offset-slate-800 dark:hover:bg-slate-700 dark:ring-negative-700   uppercase">
-                                        Delete
-                                    </a>
+                                    <livewire:staffadmin.thesis.delete-button :thesis="$thesis"/>
                                 </div>
                             </x-slot>
                         </x-card>

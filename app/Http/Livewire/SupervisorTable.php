@@ -88,6 +88,7 @@ final class SupervisorTable extends PowerGridComponent
                 $path = asset("assets/supervisor/" . $model->picture);
                 return '<img class="m-1" src="' . $path . '" />';
             })
+            ->addColumn('title')
             ->addColumn('user.name')
             ->addColumn('user.email')
             ->addColumn('phone1')
@@ -124,6 +125,10 @@ final class SupervisorTable extends PowerGridComponent
                 ->makeInputRange(),
 
             Column::make('PICTURE', 'picture'),
+
+            Column::make('NAME', 'title')
+                ->sortable()
+                ->searchable(),
 
             Column::make('NAME', 'user.name')
                 ->sortable()

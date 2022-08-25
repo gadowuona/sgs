@@ -21,7 +21,6 @@ class ThesisAssignStudent extends Mailable
      */
     public function __construct($student)
     {
-        dd($student->thesis);
         $this->student = $student;
     }
 

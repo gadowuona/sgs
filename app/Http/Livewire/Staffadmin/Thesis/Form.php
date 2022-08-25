@@ -26,7 +26,7 @@ class Form extends Component
             'due_date' => 'required|date',
             'student' => 'required|exists:students,id',
             'supervisor' => 'required|exists:supervisors,id',
-            'co_supervisor' => 'required|exists:supervisors,id',
+            'co_supervisor' => 'nullable|exists:supervisors,id',
         ];
     }
     public function updated($fields)
@@ -48,8 +48,10 @@ class Form extends Component
         $thesis->save();
 
         // record new row for supervisor and co_supervisor
-        $co_supervisor = Supervisor::find($this->co_supervisor);
-        $thesis->supervisors()->attach($co_supervisor, ['supervisor_status' => 'co-supervisor']);
+        if ($this->co_supervisor) {
+            $co_supervisor = Supervisor::find($this->co_supervisor);
+            $thesis->supervisors()->attach($co_supervisor, ['supervisor_status' => 'co-supervisor']);
+        }
         $supervisor = Supervisor::find($this->supervisor);
         $thesis->supervisors()->attach($supervisor);
 

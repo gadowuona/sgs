@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SupervisorConteroller;
+use App\Http\Controllers\SupervisorStaffController;
 use App\Http\Controllers\ThesisController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
@@ -24,11 +25,19 @@ Route::resource('students', StudentController::class)->middleware(['auth']);
 Route::resource('thesis', ThesisController::class)->middleware(['auth']);
 
 // Admin Routes 
-Route::middleware(['authcheck'])->group(function () {
+Route::middleware(['auth','authcheck'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', UserController::class);
     });
 });
+
+
+Route::middleware(['auth'])->group(function () {
+Route::group(['prefix' => 'staff'], function () {
+    Route::get('theses', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
+});
+});
+
 
 Route::get('/all/students', function () {
     return Student::all();

@@ -20,10 +20,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth',])->name('dashboard');
 
 
-Route::resource('supervisors', SupervisorConteroller::class)->middleware(['auth']);
-Route::resource('students', StudentController::class)->middleware(['auth']);
-Route::resource('thesis', ThesisController::class)->middleware(['auth']);
+Route::middleware(['auth','authstaffcheck'])->group(function () {
+Route::resource('supervisors', SupervisorConteroller::class);
+Route::resource('students', StudentController::class);
+Route::resource('thesis', ThesisController::class);
 
+});
 // Admin Routes 
 Route::middleware(['auth','authcheck'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {

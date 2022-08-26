@@ -30,10 +30,10 @@
                             </div>
                             <div class="col-span-3 border-b"></div>
                             <div>
-                                Submission Date
+                                Appointment Date
                             </div>
                             <div class="col-span-2">
-                                {{$thesis->submission_date}}
+                                {{$thesis->appointment_date}}
                             </div>
                             <div class="col-span-3 border-b"></div>
                             <div>
@@ -84,8 +84,7 @@
                                     <div class="flex">
                                         <div class="mr-4">
                                             @if($supervisor->picture)
-                                            <x-avatar size="w-24 h-24"
-                                                src="{{asset('assets/supervisor')}}/{{$supervisor->picture}}" />
+                                            <x-avatar size="w-24 h-24" src="{{asset('assets/supervisor')}}/{{$supervisor->picture}}" />
                                             @else
                                             <x-avatar size="w-24 h-24" src="https://picsum.photos/300?size=24x" />
                                             @endif

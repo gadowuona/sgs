@@ -16,13 +16,13 @@ class Form extends Component
 {
     use Actions;
 
-    public $title, $submission_date, $supervisor, $co_supervisor, $student;
+    public $title, $appointment_date, $supervisor, $co_supervisor, $student;
 
     protected function rules()
     {
         return [
             'title' => 'required|string|max:255',
-            'submission_date' => 'required|date',
+            'appointment_date' => 'required|date',
             'student' => 'required|exists:students,id',
             'supervisor' => 'required|exists:supervisors,id',
             'co_supervisor' => 'nullable|exists:supervisors,id',
@@ -42,7 +42,7 @@ class Form extends Component
         $thesis = new Thesis;
         $thesis->student_id = $this->student;
         $thesis->title = $this->title;
-        $thesis->submission_date = $this->submission_date;
+        $thesis->appointment_date = $this->appointment_date;
         $thesis->save();
 
         // record new row for supervisor and co_supervisor

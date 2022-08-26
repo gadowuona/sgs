@@ -31,10 +31,10 @@
                                 </div>
                                 <div class="col-span-3 border-b"></div>
                                 <div>
-                                    Submission Date
+                                    Appointment Date
                                 </div>
                                 <div class="col-span-2">
-                                    {{$thesis->submission_date}}
+                                    {{$thesis->appointment_date}}
                                 </div>
                                 <div class="col-span-3 border-b"></div>
                                 <div>
@@ -85,8 +85,7 @@
                                         <div class="flex">
                                             <div class="mr-4">
                                                 @if($supervisor->picture)
-                                                <x-avatar size="w-24 h-24"
-                                                    src="{{asset('assets/supervisor')}}/{{$supervisor->picture}}" />
+                                                <x-avatar size="w-24 h-24" src="{{asset('assets/supervisor')}}/{{$supervisor->picture}}" />
                                                 @else
                                                 <x-avatar size="w-24 h-24" src="https://picsum.photos/300?size=24x" />
                                                 @endif
@@ -114,8 +113,7 @@
 
                             <x-slot name="footer">
                                 <div class="flex justify-between items-center">
-                                    <a href="{{ route('thesis.edit',['thesi'=>$thesis->id])}} "
-                                        class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-primary-500 text-white bg-primary-500 hover:bg-primary-600 hover:ring-primary-600 dark:ring-offset-slate-800 dark:bg-primary-700 dark:ring-primary-700 dark:hover:bg-primary-600 dark:hover:ring-primary-600 uppercase font-semibold">
+                                    <a href="{{ route('thesis.edit',['thesi'=>$thesis->id])}} " class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-primary-500 text-white bg-primary-500 hover:bg-primary-600 hover:ring-primary-600 dark:ring-offset-slate-800 dark:bg-primary-700 dark:ring-primary-700 dark:hover:bg-primary-600 dark:hover:ring-primary-600 uppercase font-semibold">
                                         Edit
                                     </a>
                                     <livewire:staffadmin.thesis.delete-button :thesis="$thesis" />

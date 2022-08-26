@@ -12,7 +12,7 @@ class Thesis extends Model
     protected $fillable = [
         'student_id',
         'title',
-        'submission_date',
+        'appointment_date',
     ];
 
     public function supervisors()

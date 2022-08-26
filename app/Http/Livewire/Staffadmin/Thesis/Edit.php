@@ -11,13 +11,12 @@ class Edit extends Component
     use Actions;
 
     public Thesis $thesis;
-    public $title, $submission_date, $due_date;
+    public $title, $submission_date;
 
     public function mount($thesis)
     {
         $this->title = $thesis->title;
         $this->submission_date = $thesis->submission_date;
-        $this->due_date = $thesis->due_date;
         $this->student = $thesis->student;
         $this->supervisor = $thesis->supervisor;
         $this->co_supervisor = $thesis->co_supervisor;
@@ -28,7 +27,6 @@ class Edit extends Component
         return [
             'title' => 'required|string|max:255',
             'submission_date' => 'required|date',
-            'due_date' => 'required|date',
         ];
     }
 

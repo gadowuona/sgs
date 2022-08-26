@@ -6,9 +6,7 @@
             <x-input label="Thesis/Dissertation Title" type="text" placeholder="Thesis/Dissertation title"
                 wire:model.defer="title" required />
 
-            <x-input label="Submission Date" type="date" wire:model.defer="submission_date" required/>
-
-            <x-input label="Due Date" type="date" wire:model.defer="due_date" required/>
+            <x-input label="Submission Date" type="date" wire:model.defer="submission_date" required />
 
             <x-select label="Student Index Number" wire:model.defer="student" placeholder="Select a student"
                 :async-data="route('api.student')" option-label="index_number" option-value="id"
@@ -23,7 +21,7 @@
             <x-select label="Supervisor (Staff ID)" wire:model.defer="supervisor" placeholder="Select a Supervisor"
                 :async-data="route('api.supervisor')" option-label="staffid"
                 :template="['name'   => 'user-option','config' => ['src' => 'profile_image']]" option-value="id"
-                option-description="user.name" required/>
+                option-description="user.name" required />
 
             <x-select label="Co-Supervisor (Staff ID, Optional)" wire:model.defer="co_supervisor"
                 placeholder="Select a co-supervisor" :async-data="route('api.supervisor')" option-label="staffid"

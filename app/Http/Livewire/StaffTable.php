@@ -76,7 +76,7 @@ final class StaffTable extends PowerGridComponent
     {
         return [
             'thesis' => [
-                'title', 'due_date', 'submission_date', 'complete_status', 'payment_status',
+                'title', 'submission_date', 'complete_status', 'payment_status',
                 'student' => [
                     'full_name'
                 ]
@@ -102,7 +102,6 @@ final class StaffTable extends PowerGridComponent
                 return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
             ->addColumn('thesis.submission_date')
-            ->addColumn('thesis.due_date')
             ->addColumn('thesis.complete_status')
             ->addColumn('thesis.payment_status')
             ->addColumn('thesis.student.full_name')
@@ -131,10 +130,6 @@ final class StaffTable extends PowerGridComponent
                 ->sortable(),
 
             Column::make('SUBMISSION DATE', 'thesis.submission_date')
-                ->searchable()
-                ->sortable(),
-
-            Column::make('DUE DATE', 'thesis.due_date')
                 ->searchable()
                 ->sortable(),
 

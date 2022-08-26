@@ -98,14 +98,13 @@ final class FinanceThesisTable extends PowerGridComponent
                 return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
-            ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
             ->addColumn('student.full_name')
             ->addColumn('supervisor', function (Thesis $model) {
                 return view('livewire.staffadmin.thesis.super', ['thesis' => $model]);
             })
             ->addColumn('complete_status')
             ->addColumn('payment_status')
-            ->addColumn('updated_at_formatted', fn (Thesis $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -134,10 +133,6 @@ final class FinanceThesisTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make('DUE DATE', 'due_date_formatted', 'due_date')
-                ->searchable()
-                ->sortable(),
-
             Column::make('SUPERVISORS', 'supervisor')
                 ->searchable()
                 ->sortable(),
@@ -154,10 +149,9 @@ final class FinanceThesisTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
+            Column::make('CREATED AT', 'created_at_formatted', 'created_at')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker(),
+                ->sortable(),
 
         ];
     }

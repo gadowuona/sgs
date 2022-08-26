@@ -13,7 +13,6 @@ class Thesis extends Model
         'student_id',
         'title',
         'submission_date',
-        'due_date',
     ];
 
     public function supervisors()

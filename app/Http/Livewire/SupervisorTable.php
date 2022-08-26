@@ -50,7 +50,7 @@ final class SupervisorTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Supervisor::query()->with('user')->orderBy('created_at','DESC');
+        return Supervisor::query()->with('user')->orderBy('created_at', 'DESC');
     }
 
     /*
@@ -97,7 +97,6 @@ final class SupervisorTable extends PowerGridComponent
             ->addColumn('user.email')
             ->addColumn('phone1')
             ->addColumn('nid')
-            // ->addColumn('address')
             ->addColumn('collage')
             ->addColumn('fns')
             ->addColumn('faculty_school')
@@ -153,7 +152,7 @@ final class SupervisorTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-           
+
 
             Column::make('COLLAGE', 'collage')
                 ->sortable()

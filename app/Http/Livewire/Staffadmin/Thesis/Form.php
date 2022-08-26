@@ -16,14 +16,13 @@ class Form extends Component
 {
     use Actions;
 
-    public $title, $submission_date, $due_date, $supervisor, $co_supervisor, $student;
+    public $title, $submission_date, $supervisor, $co_supervisor, $student;
 
     protected function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'submission_date' => 'required|date',
-            'due_date' => 'required|date',
             'student' => 'required|exists:students,id',
             'supervisor' => 'required|exists:supervisors,id',
             'co_supervisor' => 'nullable|exists:supervisors,id',
@@ -44,7 +43,6 @@ class Form extends Component
         $thesis->student_id = $this->student;
         $thesis->title = $this->title;
         $thesis->submission_date = $this->submission_date;
-        $thesis->due_date = $this->due_date;
         $thesis->save();
 
         // record new row for supervisor and co_supervisor
@@ -67,7 +65,7 @@ class Form extends Component
         Mail::to($student->email)->send(new ThesisAssignStudent($student));
 
 
-        
+
         session()->flash('message', 'Thesis was successfully assigned to a supervisor');
 
         return redirect()->route('thesis.index');

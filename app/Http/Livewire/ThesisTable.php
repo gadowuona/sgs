@@ -101,7 +101,6 @@ final class ThesisTable extends PowerGridComponent
                 return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
-            ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
             ->addColumn('student.full_name')
             ->addColumn('supervisor', function (Thesis $model) {
                 return view('livewire.staffadmin.thesis.super', ['thesis' => $model]);
@@ -134,10 +133,6 @@ final class ThesisTable extends PowerGridComponent
                 ->makeInputText(),
 
             Column::make('SUBMISSION DATE', 'submission_date_formatted', 'submission_date')
-                ->searchable()
-                ->sortable(),
-
-            Column::make('DUE DATE', 'due_date_formatted', 'due_date')
                 ->searchable()
                 ->sortable(),
 

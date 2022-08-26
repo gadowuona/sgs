@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->date('submission_date');
-            $table->date('due_date');
             $table->timestamps();
         });
     }

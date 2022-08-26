@@ -15,7 +15,7 @@
                     @if(Session::has('message'))
                     <x-alert-success>{{Session::get('message')}}</x-alert-success>
                     @endif
-                    
+
                     <!--  -->
                     <div>
                         <div>
@@ -35,13 +35,6 @@
                                 </div>
                                 <div class="col-span-2">
                                     {{$thesis->submission_date}}
-                                </div>
-                                <div class="col-span-3 border-b"></div>
-                                <div>
-                                    Due Date
-                                </div>
-                                <div class="col-span-2">
-                                    {{$thesis->due_date}}
                                 </div>
                                 <div class="col-span-3 border-b"></div>
                                 <div>
@@ -125,7 +118,7 @@
                                         class="outline-none inline-flex justify-center items-center group transition-all ease-in duration-150 focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 text-sm px-4 py-2     ring-primary-500 text-white bg-primary-500 hover:bg-primary-600 hover:ring-primary-600 dark:ring-offset-slate-800 dark:bg-primary-700 dark:ring-primary-700 dark:hover:bg-primary-600 dark:hover:ring-primary-600 uppercase font-semibold">
                                         Edit
                                     </a>
-                                    <livewire:staffadmin.thesis.delete-button :thesis="$thesis"/>
+                                    <livewire:staffadmin.thesis.delete-button :thesis="$thesis" />
                                 </div>
                             </x-slot>
                         </x-card>

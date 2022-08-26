@@ -34,13 +34,6 @@
                             </div>
                             <div class="col-span-3 border-b"></div>
                             <div>
-                                Due Date
-                            </div>
-                            <div class="col-span-2">
-                                {{$thesis->due_date}}
-                            </div>
-                            <div class="col-span-3 border-b"></div>
-                            <div>
                                 Completed Status
                             </div>
                             <div class="col-span-2">

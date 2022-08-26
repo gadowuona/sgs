@@ -61,7 +61,7 @@ final class StudentTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return Student::query()->orderBy('created_at','DESC');
+        return Student::query()->orderBy('created_at', 'DESC');
     }
 
     /*
@@ -100,7 +100,7 @@ final class StudentTable extends PowerGridComponent
             ->addColumn('programme')
             ->addColumn('gender')
             ->addColumn('phone1')
-            ->addColumn('created_at_formatted', fn (Student $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Student $model) => Carbon::parse($model->created_at)->format('D d M, Y g:i:s A'));
     }
 
     /*

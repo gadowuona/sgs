@@ -104,7 +104,7 @@ final class FinanceThesisTable extends PowerGridComponent
             })
             ->addColumn('complete_status')
             ->addColumn('payment_status')
-            ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Thesis $model) => Carbon::parse($model->created_at)->format('D d M, Y g:i:s A'));
     }
 
     /*

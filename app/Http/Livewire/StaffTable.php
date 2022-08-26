@@ -105,7 +105,7 @@ final class StaffTable extends PowerGridComponent
             ->addColumn('thesis.complete_status')
             ->addColumn('thesis.payment_status')
             ->addColumn('thesis.student.full_name')
-            ->addColumn('updated_at_formatted', fn (SupervisorThesis $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('updated_at_formatted', fn (SupervisorThesis $model) => Carbon::parse($model->updated_at)->format('D d M, Y g:i:s A'));
     }
 
     /*

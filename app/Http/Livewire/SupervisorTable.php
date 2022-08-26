@@ -103,7 +103,7 @@ final class SupervisorTable extends PowerGridComponent
             ->addColumn('department')
             ->addColumn('qualification')
             ->addColumn('super_status')
-            ->addColumn('created_at_formatted', fn (Supervisor $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Supervisor $model) => Carbon::parse($model->created_at)->format('D d M, Y g:i:s A'));
     }
 
     /*

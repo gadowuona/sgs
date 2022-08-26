@@ -17,9 +17,9 @@ class AuthStaffCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role === 'STF') {
-            return redirect()->route('dashboard');
+        if (Auth::user()->role === 'ADM' || Auth::user()->role === 'STFADM') {
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->route('dashboard');
     }
 }

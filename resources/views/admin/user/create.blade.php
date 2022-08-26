@@ -10,10 +10,14 @@
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
+
                     <!--  -->
                     <x-back-link href="{{ route('users.index') }}" class="mb-4">back</x-back-link>
 
                     <!--  -->
+                    @if(Session::has('message'))
+                    <x-alert-success>{{Session::get('message')}}</x-alert-success>
+                    @endif
 
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -56,12 +60,12 @@
                         <div class="mt-4">
                             <x-auth-label for="role" :value="__('Role')" />
 
-                            <select id="role" class="block mt-1 w-full" type="password" name="role" :value="old('role')"
-                                required>
+                            <x-auth-select id="role" class="block mt-1 w-full" type="password" name="role"
+                                :value="old('role')" required>
                                 <option value=""></option>
                                 <option value="STFADM">Staff Admin</option>
                                 <option value="FIN">Finance</option>
-                            </select>
+                            </x-auth-select>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

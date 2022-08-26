@@ -2,16 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\SupervisorThesis;
+use App\Models\Thesis;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class StaffTable extends PowerGridComponent
+final class FinanceThesisTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -48,15 +47,11 @@ final class StaffTable extends PowerGridComponent
     /**
      * PowerGrid datasource.
      *
-     * @return Builder<\App\Models\SupervisorThesis>
+     * @return Builder<\App\Models\Thesis>
      */
     public function datasource(): Builder
     {
-        $supervisor_id = null;
-        if (Auth::user()->supervisor) {
-            $supervisor_id = Auth::user()->supervisor->id;
-        }
-        return SupervisorThesis::query()->where('supervisor_id', $supervisor_id)->with('thesis');
+        return Thesis::query()->with(['student', 'supervisors'])->orderBy('created_at', 'DESC');
     }
 
     /*
@@ -75,12 +70,14 @@ final class StaffTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
-            'thesis' => [
-                'title', 'due_date', 'submission_date', 'complete_status', 'payment_status',
-                'student' => [
-                    'full_name'
+            'student' => [
+                'full_name', // column enabled to search
+            ],
+            'supervisors' => [
+                'user' => [
+                    'name'
                 ]
-            ]
+            ],
         ];
     }
 
@@ -95,18 +92,20 @@ final class StaffTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('id')
-            ->addColumn('thesis.title', function (SupervisorThesis $model) {
-                $title = Str::words($model->thesis->title, 8);
-                $url = route('staff.thesis.show', ['thesi' => $model->thesis->id]);
+            ->addColumn('title', function (Thesis $model) {
+                $title = Str::words($model->title, 8);
+                $url = route('finance.thesis.show', ['thesi' => $model->id]);
                 return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
-            ->addColumn('thesis.submission_date')
-            ->addColumn('thesis.due_date')
-            ->addColumn('thesis.complete_status')
-            ->addColumn('thesis.payment_status')
-            ->addColumn('thesis.student.full_name')
-            ->addColumn('updated_at_formatted', fn (SupervisorThesis $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
+            ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
+            ->addColumn('student.full_name')
+            ->addColumn('supervisor', function (Thesis $model) {
+                return view('livewire.staffadmin.thesis.super', ['thesis' => $model]);
+            })
+            ->addColumn('complete_status')
+            ->addColumn('payment_status')
+            ->addColumn('updated_at_formatted', fn (Thesis $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -126,33 +125,39 @@ final class StaffTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Title', 'thesis.title')
+            Column::make('TITLE', 'title')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('SUBMISSION DATE', 'submission_date_formatted', 'submission_date')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('SUBMISSION DATE', 'thesis.submission_date')
+            Column::make('DUE DATE', 'due_date_formatted', 'due_date')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('DUE DATE', 'thesis.due_date')
+            Column::make('SUPERVISORS', 'supervisor')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('COMPLETE STATUS', 'thesis.complete_status')
+            Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('PAYMENT STATUS', 'thesis.payment_status')
-                ->searchable()
-                ->sortable(),
+            Column::make('COMPLETED STATUS', 'complete_status')
+                ->sortable()
+                ->searchable(),
 
-            Column::make('STUDENT NAME', 'thesis.student.full_name')
-                ->searchable()
-                ->sortable(),
+            Column::make('PAYMENT STATUS', 'payment_status')
+                ->sortable()
+                ->searchable(),
 
             Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
                 ->searchable()
-                ->sortable(),
+                ->sortable()
+                ->makeInputDatePicker(),
 
         ];
     }
@@ -166,7 +171,7 @@ final class StaffTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid SupervisorThesis Action Buttons.
+     * PowerGrid Thesis Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -177,11 +182,11 @@ final class StaffTable extends PowerGridComponent
        return [
            Button::make('edit', 'Edit')
                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('supervisor-thesis.edit', ['supervisor-thesis' => 'id']),
+               ->route('thesis.edit', ['thesis' => 'id']),
 
            Button::make('destroy', 'Delete')
                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('supervisor-thesis.destroy', ['supervisor-thesis' => 'id'])
+               ->route('thesis.destroy', ['thesis' => 'id'])
                ->method('delete')
         ];
     }
@@ -196,7 +201,7 @@ final class StaffTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid SupervisorThesis Action Rules.
+     * PowerGrid Thesis Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -208,7 +213,7 @@ final class StaffTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($supervisor-thesis) => $supervisor-thesis->id === 1)
+                ->when(fn($thesis) => $thesis->id === 1)
                 ->hide(),
         ];
     }

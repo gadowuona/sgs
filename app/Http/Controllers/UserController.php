@@ -44,13 +44,14 @@ class UserController extends Controller
             'role' => ['required', 'string'],
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
 
+        session()->flash('message', 'User was successfully saved');
         return redirect()->route('users.index');
     }
 

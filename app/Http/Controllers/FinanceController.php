@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Thesis;
 use Illuminate\Http\Request;
 
-class SupervisorStaffController extends Controller
+class FinanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class SupervisorStaffController extends Controller
      */
     public function index()
     {
-        return view('staff.thesis.index');
+        return view('finance.thesis.index');
     }
 
     /**
@@ -26,6 +26,6 @@ class SupervisorStaffController extends Controller
     public function show($id)
     {
         $thesis = Thesis::find($id);
-        return view('staff.thesis.show', compact('thesis'));
+        return view('finance.thesis.show', compact('thesis'));
     }
 }

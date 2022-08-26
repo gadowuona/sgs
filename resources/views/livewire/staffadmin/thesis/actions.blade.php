@@ -2,8 +2,8 @@
     @if(Auth::user()->role === 'FIN')
     <x-local-dropdown align="left">
         <x-slot name="trigger">
-            <button
-                class="flex items-center text-sm font-bold hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out   focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 px-4 py-2     ring-green-600 text-green-600 hover:bg-green-100 dark:ring-offset-slate-800 dark:hover:bg-slate-700 dark:ring-green-700   uppercase">
+            <x-button spinner="updateThesisPaidStatus"
+                class=" flex items-center text-sm font-bold hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 px-4 py-2 ring-green-600 text-green-600 hover:bg-green-100 dark:ring-offset-slate-800 dark:hover:bg-slate-700 dark:ring-green-700 uppercase">
                 <div>Payment Status</div>
 
                 <div class="ml-1">
@@ -13,19 +13,21 @@
                             clip-rule="evenodd" />
                     </svg>
                 </div>
-            </button>
+            </x-button>
         </x-slot>
 
         <x-slot name="content">
+            @if($thesis->payment_status === 'not-paid')
             <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                 href="#" wire:click.prevent="updateThesisPaidStatus({{$thesis->id}},'paid')">
                 {{ __('Paid') }}
             </a>
+            @else
             <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                 href="#" wire:click.prevent="updateThesisPaidStatus({{$thesis->id}},'not-paid')">
                 {{ __('Not Paid') }}
             </a>
-
+            @endif
         </x-slot>
     </x-local-dropdown>
 
@@ -33,8 +35,8 @@
 
     <x-local-dropdown align="left">
         <x-slot name="trigger">
-            <button
-                class="flex items-center text-sm font-medium hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out  focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 px-4 py-2  ring-negative-600 text-negative-600 hover:bg-negative-100 dark:ring-offset-slate-800 dark:hover:bg-slate-700 dark:ring-negative-700   uppercase">
+            <x-button spinner="updateThesisCompleteStatus"
+                class=" flex items-center text-sm font-medium hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out focus:ring-2 focus:ring-offset-2 hover:shadow-sm disabled:opacity-80 disabled:cursor-not-allowed rounded gap-x-2 px-4 py-2 ring-negative-600 text-negative-600 hover:bg-negative-100 dark:ring-offset-slate-800 dark:hover:bg-slate-700 dark:ring-negative-700 uppercase">
                 <div>Complete Status</div>
 
                 <div class="ml-1">
@@ -44,19 +46,21 @@
                             clip-rule="evenodd" />
                     </svg>
                 </div>
-            </button>
+            </x-button>
         </x-slot>
 
         <x-slot name="content">
+            @if($thesis->complete_status === 'not-completed')
             <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                 href="#" wire:click.prevent="updateThesisCompleteStatus({{$thesis->id}},'completed')">
                 {{ __('Completed') }}
             </a>
+            @else
             <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                 href="#" wire:click.prevent="updateThesisCompleteStatus({{$thesis->id}},'not-completed')">
                 {{ __('Not Complete') }}
             </a>
-
+            @endif
         </x-slot>
     </x-local-dropdown>
     @endif

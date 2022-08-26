@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthFin
 {
@@ -16,6 +17,9 @@ class AuthFin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (Auth::user()->role !== 'FIN') {
+            return redirect()->route('dashboard');
+        }
         return $next($request);
     }
 }

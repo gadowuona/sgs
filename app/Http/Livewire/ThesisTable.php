@@ -95,11 +95,10 @@ final class ThesisTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('id')
             ->addColumn('title', function (Thesis $model) {
                 $title = Str::words($model->title, 8);
                 $url = route('thesis.show', ['thesi' => $model->id]);
-                return '<a class="m-1 !text-indigo-400 decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
+                return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
             ->addColumn('submission_date_formatted', fn (Thesis $model) => Carbon::parse($model->submission_date)->format('d/m/Y'))
             ->addColumn('due_date_formatted', fn (Thesis $model) => Carbon::parse($model->due_date)->format('d/m/Y'))
@@ -129,9 +128,6 @@ final class ThesisTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
-                ->makeInputText(),
-
             Column::make('TITLE', 'title')
                 ->sortable()
                 ->searchable()
@@ -149,9 +145,6 @@ final class ThesisTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            // Column::make('CO SUPERVISOR', 'co_supervisor')
-            //     ->searchable()
-            //     ->sortable(),
 
             Column::make('STUDENT NAME', 'student.full_name')
                 ->searchable()

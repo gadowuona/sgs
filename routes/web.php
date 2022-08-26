@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SupervisorConteroller;
@@ -32,13 +33,21 @@ Route::middleware(['auth', 'authcheck'])->group(function () {
         Route::resource('users', UserController::class);
     });
 });
+Route::middleware(['auth', 'authfin'])->group(function () {
+    Route::group(['prefix' => 'finance'], function () {
+        Route::get('thesis', [FinanceController::class, 'index'])->name('finance.thesis.index');
+        Route::get('thesis/{thesi}', [FinanceController::class, 'show'])->name('finance.thesis.show');
+    });
+});
+
+
 
 
 // Staff Routes
 Route::middleware(['auth', 'authstaff'])->group(function () {
     Route::group(['prefix' => 'staff'], function () {
-        Route::get('theses', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
-        Route::get('theses/{thesi}', [SupervisorStaffController::class, 'show'])->name('staff.thesis.show');
+        Route::get('thesis', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
+        Route::get('thesis/{thesi}', [SupervisorStaffController::class, 'show'])->name('staff.thesis.show');
     });
 });
 

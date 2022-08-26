@@ -25,6 +25,7 @@ Route::middleware(['auth', 'authstaffcheck'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::resource('thesis', ThesisController::class);
 });
+
 // Admin Routes 
 Route::middleware(['auth', 'authcheck'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {

@@ -4,7 +4,7 @@
         <a href="/" class="flex items-end">
             <x-application-logo class="h-[6rem] mr-3" />
             <div id="site-slogan" class="text-[#2c3690] text-[20px] font-bold uppercase">UCC School of Graduate Studies
-                Supervisor Thesis Management Systems</div>
+                Supervisor Thesis Management Portal</div>
         </a>
     </div>
 

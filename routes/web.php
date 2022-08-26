@@ -38,6 +38,7 @@ Route::middleware(['auth', 'authcheck'])->group(function () {
 Route::middleware(['auth', 'authstaff'])->group(function () {
     Route::group(['prefix' => 'staff'], function () {
         Route::get('theses', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
+        Route::get('theses/{thesi}', [SupervisorStaffController::class, 'show'])->name('staff.thesis.show');
     });
 });
 

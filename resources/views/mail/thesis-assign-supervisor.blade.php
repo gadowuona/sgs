@@ -1,7 +1,7 @@
 @component('mail::message')
 
 # hello, {{$supervisor->title}} {{$supervisor->last_name}}
-You have been assign as a {{$supervisor_thesis->supervisor_status }} to a thesis with the following information:
+You have been assigned as a {{$supervisor_thesis->supervisor_status }} to a thesis with the following information:
 
 @component('mail::table')
 | | |

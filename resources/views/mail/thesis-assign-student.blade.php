@@ -1,7 +1,7 @@
 @component('mail::message')
 
 # hello, {{$student->full_name}}
-Your thesis / dessertation has have been assigned to a supervisor and a co-supervisor. Below are details about your
+Your thesis / dissertation has have been assigned to a supervisor and a co-supervisor. Below are details about your
 theses:
 
 @component('mail::table')

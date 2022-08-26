@@ -20,23 +20,24 @@ Route::get('/dashboard', function () {
 })->middleware(['auth',])->name('dashboard');
 
 
-Route::middleware(['auth','authstaffcheck'])->group(function () {
-Route::resource('supervisors', SupervisorConteroller::class);
-Route::resource('students', StudentController::class);
-Route::resource('thesis', ThesisController::class);
+Route::middleware(['auth', 'authstaffcheck'])->group(function () {
+    Route::resource('supervisors', SupervisorConteroller::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('thesis', ThesisController::class);
 });
 // Admin Routes 
-Route::middleware(['auth','authcheck'])->group(function () {
+Route::middleware(['auth', 'authcheck'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', UserController::class);
     });
 });
 
 
-Route::middleware(['auth'])->group(function () {
-Route::group(['prefix' => 'staff'], function () {
-    Route::get('theses', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
-});
+// Staff Routes
+Route::middleware(['auth', 'authstaff'])->group(function () {
+    Route::group(['prefix' => 'staff'], function () {
+        Route::get('theses', [SupervisorStaffController::class, 'index'])->name('staff.thesis.index');
+    });
 });
 
 

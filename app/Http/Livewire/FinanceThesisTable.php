@@ -97,7 +97,7 @@ final class FinanceThesisTable extends PowerGridComponent
                 $url = route('finance.thesis.show', ['thesi' => $model->id]);
                 return '<a class="m-1 !text-indigo-400 underline decoration-dashed" href="' . $url . '" styel="color:#818cf8;"/>' . $title . '</a>';
             })
-            ->addColumn('appointment_date_formatted', fn (Thesis $model) => Carbon::parse($model->appointment_date)->format('d/m/Y'))
+            ->addColumn('appointment_date_formatted', fn (Thesis $model) => Carbon::parse($model->appointment_date)->format('D d M, Y'))
             ->addColumn('student.full_name')
             ->addColumn('supervisor', function (Thesis $model) {
                 return view('livewire.staffadmin.thesis.super', ['thesis' => $model]);

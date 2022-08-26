@@ -135,13 +135,13 @@ final class SupervisorTable extends PowerGridComponent
 
             Column::make('NAME', 'user.name')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+            // ->makeInputText(),
 
             Column::make('EMAIl', 'user.email')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+            // ->makeInputText(),
 
             Column::make('CONTACT NO.', 'phone1')
                 ->sortable()

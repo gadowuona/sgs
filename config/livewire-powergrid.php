@@ -40,7 +40,7 @@ return [
             'locales' => [
                 'pt_BR' => [
                     'locale'     => 'pt',
-                    'dateFormat' => 'd/m/Y H:i',
+                    'dateFormat' => 'D d M, Y H:i',
                     'enableTime' => true,
                     'time_24hr'  => true,
                 ],

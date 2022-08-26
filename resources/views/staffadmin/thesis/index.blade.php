@@ -12,6 +12,7 @@
                     <!--  -->
                     <x-link href="{{ route('thesis.create') }}" class="mb-4">Assign Thesis / Dissertation</x-link>
 
+                    <!--  -->
                     @if(Session::has('message'))
                     <x-alert-success>{{Session::get('message')}}</x-alert-success>
                     @endif

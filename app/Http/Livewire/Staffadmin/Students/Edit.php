@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Staffadmin\Students;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -42,17 +43,37 @@ class Edit extends Component
         $this->validateOnly($fields);
     }
 
+
+
     public function save()
     {
-        // Validate the fields before updating.
         $validatedData = $this->validate();
 
-        // update validated info
-        $this->student->update($validatedData);
+        DB::beginTransaction();
 
-        session()->flash('message', 'Student\'s details was successfull updated');
-        return redirect()->route('students.index');
+        try {
+            // Update the related User
+            $this->student->user->update([
+                'name' => $this->full_name,
+                'email' => $this->email,
+            ]);
+
+            // Update the Student model
+            $this->student->update($validatedData);
+
+            DB::commit();
+
+            session()->flash('message', 'Student\'s details were successfully updated');
+            return redirect()->route('students.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->notification()->error(
+                'Error',
+                'Failed to update student: ' . $e->getMessage()
+            );
+        }
     }
+
 
     public function render()
     {

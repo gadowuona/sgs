@@ -10,6 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'index_number',
         'full_name',
         'email',
@@ -18,6 +19,12 @@ class Student extends Model
         'phone1',
         'phone2',
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function thesis()
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Staffadmin\Students;
 
 use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -35,19 +37,45 @@ class Form extends Component
         // Validate the fields before updating.
         $this->validate();
 
-        // create Student
-        Student::create([
-            'index_number' => strtoupper($this->index_number),
-            'full_name' => $this->full_name,
-            'email' => $this->email,
-            'programme' => strtoupper($this->programme),
-            'gender' => $this->gender,
-            'phone1' => $this->phone1,
-            'phone2' => $this->phone2,
-        ]);
+        DB::beginTransaction();
 
-        session()->flash('message', 'Student\'s details was successfull updated');
-        return redirect()->route('students.index');
+        try {
+            // Create User
+            $user = User::updateOrCreate(
+                [
+                    'email' => $this->email,
+                    'role' => 'STF',
+                ],
+                [
+                    'name' => $this->full_name,
+                    'password' => bcrypt(strtolower($this->index_number)),
+                ]
+            );
+
+            // Create Student
+            Student::updateOrCreate([
+                'index_number' => strtoupper($this->index_number),
+                'email' => $this->email,
+            ], [
+                'user_id' => $user->id,
+                'full_name' => $this->full_name,
+                'programme' => strtoupper($this->programme),
+                'gender' => $this->gender,
+                'phone1' => $this->phone1,
+                'phone2' => $this->phone2,
+            ]);
+
+            DB::commit();
+
+            session()->flash('message', 'Student\'s details was successfully created');
+            return redirect()->route('students.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->notification()->error(
+                $title = 'Error',
+                $description = 'Failed to create student: ' . $e->getMessage()
+            );
+        }
     }
 
 

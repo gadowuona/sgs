@@ -11,7 +11,7 @@ class Edit extends Component
     use Actions;
 
     public Thesis $thesis;
-    public $title, $appointment_date;
+    public $title, $appointment_date, $student, $supervisor, $co_supervisor;
 
     public function mount($thesis)
     {
@@ -43,7 +43,7 @@ class Edit extends Component
         // update validated info
         $this->thesis->update($validatedData);
 
-        session()->flash('message', 'Thesis infomation was successfully updated !');
+        session()->flash('message', 'Thesis information was successfully updated !');
 
         return redirect()->route('thesis.index');
     }

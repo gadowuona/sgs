@@ -21,9 +21,12 @@
 
             <x-input label="Birthdate" type="date" wire:model.defer="birthdate" />
 
-            <x-native-select label="Gender"
-                :options="[['value' => '', 'name' => 'select one'], ['value' => 'male', 'name' => 'Male'],['value' => 'female', 'name' => 'Female']]"
-                option-label="name" option-value="value" wire:model.defer="gender" />
+            <x-native-select label="Gender" :options="[
+                ['value' => '', 'name' => 'select one'],
+                ['value' => 'male', 'name' => 'Male'],
+                ['value' => 'female', 'name' => 'Female'],
+            ]" option-label="name" option-value="value"
+                wire:model.defer="gender" />
 
             <x-inputs.maskable label="Phone No. 1" mask="['(###) ###-####', '+# ### ###-####', '+## ## ####-####']"
                 placeholder="Phone number 1" required wire:model.defer="phone1" />
@@ -39,17 +42,28 @@
                 <x-textarea label="Address" placeholder="Enter Address" wire:model.defer="address" />
             </div>
 
-            <x-native-select label="Faculty/School" :options="[['value' => '', 'name' => 'Select your College'], 
-                ['value' => 'college of humanities and legal studies', 'name' => 'College of Humanities and Legal Studies'],
+            <x-native-select label="Faculty/School" :options="[
+                ['value' => '', 'name' => 'Select your College'],
+                [
+                    'value' => 'college of humanities and legal studies',
+                    'name' => 'College of Humanities and Legal Studies',
+                ],
                 ['value' => 'college of health and allied sciences', 'name' => 'College of Health and Allied Sciences'],
                 ['value' => 'college of distance education', 'name' => 'College of Distance Education'],
                 ['value' => 'college of education studies', 'name' => 'College of Education Studies'],
-                ['value' => 'college of agricultural and natural sciences', 'name' => 'College of Agricultural and Natural Sciences'],
-                ]" option-label="name" option-value="value" wire:model.defer="collage" />
+                [
+                    'value' => 'college of agricultural and natural sciences',
+                    'name' => 'College of Agricultural and Natural Sciences',
+                ],
+            ]" option-label="name" option-value="value"
+                wire:model.defer="collage" />
 
-            <x-native-select label="Faculty/School"
-                :options="[['value' => '', 'name' => 'select one'], ['value' => 'faculty', 'name' => 'Faculty'],['value' => 'school', 'name' => 'School']]"
-                option-label="name" option-value="value" wire:model.defer="fns" />
+            <x-native-select label="Faculty/School" :options="[
+                ['value' => '', 'name' => 'select one'],
+                ['value' => 'faculty', 'name' => 'Faculty'],
+                ['value' => 'school', 'name' => 'School'],
+            ]" option-label="name" option-value="value"
+                wire:model.defer="fns" />
 
             <x-input label="Faculty/School" type="text" placeholder="Enter your Faculty / School title" required
                 wire:model.defer="faculty_school" />
@@ -64,10 +78,11 @@
                 <x-auth-label for="picture" :value="__('Picture')" />
                 <input type="file" wire:model.defer="newpicture" />
                 <div class="mb-4">
-                    @if($newpicture)
-                    <img src="{{$newpicture->temporaryUrl()}}" class="max-h-[150px] text-center" alt="">
-                    @else
-                    <img src="{{asset('assets/supervisor')}}/{{$picture}}" class="max-h-[150px] text-center" alt="">
+                    @if ($newpicture)
+                        <img src="{{ $newpicture->temporaryUrl() }}" class="max-h-[150px] text-center" alt="">
+                    @elseif ($picture)
+                        <img src="{{ asset('storage/supervisor/' . $picture) }}" class="max-h-[150px] text-center"
+                            alt="">
                     @endif
                 </div>
             </div>

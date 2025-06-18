@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->date('appointment_date');
+            $table->enum('complete_status', ['completed', 'not-completed'])->default('not-completed');
+            $table->enum('payment_status', ['paid', 'not-paid', 'processing'])->default('not-paid');
             $table->timestamps();
         });
     }

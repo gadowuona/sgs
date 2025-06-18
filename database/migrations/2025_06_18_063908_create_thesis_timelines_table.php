@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('supervisors', function (Blueprint $table) {
-            $table->enum('title', ['Prof.', 'Dr.', 'Rev.', 'Mr.', 'Mrs.', 'Miss', 'Ms.']);
+        Schema::create('thesis_timelines', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('thesis_id')->constrained()->onDelete('cascade');
+            $table->string('event');
+            $table->text('note')->nullable();
+            $table->timestamp('event_date')->useCurrent();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('supervisors', function (Blueprint $table) {
-            $table->enum('title', ['Prof.', 'Dr.', 'Rev.', 'Mr.', 'Mrs.', 'Miss', 'Ms.']);
-        });
+        Schema::dropIfExists('thesis_timelines');
     }
 };

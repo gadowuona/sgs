@@ -7,10 +7,8 @@
 
     <div class="py-12 ">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <!--  -->
 
-            <x-back-link href="{{ route('theses.index') }}" class="mb-4">back</x-back-link>
-            <livewire:staffadmin.thesis.actions :thesis="$thesis" />
+
             <!--  -->
             @if (Session::has('message'))
                 <x-alert-success>{{ Session::get('message') }}</x-alert-success>
@@ -124,7 +122,7 @@
 
 
                 <!-- Timeline Display -->
-                {{-- <x-card title="Thesis Timelines">
+                <x-card title="Thesis Timelines">
                     @foreach ($thesis->timelines as $entry)
                         <div class="mb-4">
                             <div class="text-sm font-bold">{{ $entry->stage }}</div>
@@ -132,7 +130,7 @@
                                 {{ $entry->date->format('d M Y') }}</div>
                         </div>
                     @endforeach
-                </x-card> --}}
+                </x-card>
 
                 {{-- @if (auth()->user()->isSupervisor()) --}}
                 <x-card title="Thesis Review">
@@ -147,16 +145,7 @@
                     <livewire:thesis-amendment.form />
 
                 </x-card>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <livewire:thesis.progress :thesis="$thesis" />
-                    <livewire:thesis.timeline :thesis="$thesis" />
-                    <div class="col-span-1 md:col-span-2">
-                        <livewire:thesis.review-form :thesis="$thesis" />
-                    </div>
-
-                </div>
-
+                {{-- @endif --}}
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ class Edit extends Component
 
         session()->flash('message', 'Thesis information was successfully updated !');
 
-        return redirect()->route('thesis.index');
+        return redirect()->route('theses.index');
     }
     public function render()
     {

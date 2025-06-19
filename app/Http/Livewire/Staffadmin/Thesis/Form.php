@@ -82,7 +82,7 @@ class Form extends Component
 
             // flash message
             session()->flash('message', 'Thesis was successfully assigned to a supervisor');
-            return redirect()->route('thesis.index');
+            return redirect()->route('theses.index');
         } catch (Exception $e) {
             DB::rollBack();
 

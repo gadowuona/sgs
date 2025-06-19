@@ -29,4 +29,19 @@ class Thesis extends Model
     {
         return $this->hasMany(SupervisorThesis::class);
     }
+
+    public function amendment()
+    {
+        return $this->hasMany(ThesisAmendment::class);
+    }
+
+    public function latestAmendment()
+    {
+        return $this->hasOne(ThesisAmendment::class)->latestOfMany();
+    }
+
+    public function timelines()
+    {
+        return $this->hasMany(ThesisTimeline::class)->latest('event_date');
+    }
 }

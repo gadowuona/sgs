@@ -14,7 +14,7 @@ class DeleteButton extends Component
         $thesis = Thesis::find($thesis_id);
         $thesis->delete();
         session()->flash('message', 'Thesis has been deleted succefully!');
-        return redirect()->route('thesis.index');
+        return redirect()->route('theses.index');
     }
 
     public function render()

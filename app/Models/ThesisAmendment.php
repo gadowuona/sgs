@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ThesisAmendment extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

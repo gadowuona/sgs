@@ -16,15 +16,23 @@ class StudentController extends Controller
             ->select('id', 'full_name', 'email', 'index_number')
             ->orderBy('index_number')
             ->when(
-                $request->search,
-                fn (Builder $query) => $query
-                    ->where('index_number', 'like', "%{$request->search}%")
-                    ->orWhere('full_name', 'like', "%{$request->search}%")
+                $request->filled('search'),
+                function (Builder $query) use ($request) {
+                    $search = $request->input('search');
+                    $query->where(function ($q) use ($search) {
+                        $q->where('index_number', 'like', "%{$search}%")
+                            ->orWhere('full_name', 'like', "%{$search}%");
+                    });
+                }
             )
             ->when(
-                $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn('id', $request->input('selected', [])),
-                fn (Builder $query) => $query->limit(10)
+                $request->filled('selected'),
+                function (Builder $query) use ($request) {
+                    $query->whereIn('id', $request->input('selected', []));
+                },
+                function (Builder $query) {
+                    $query->limit(10);
+                }
             )
             ->get();
     }

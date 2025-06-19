@@ -41,24 +41,23 @@ class ThesisController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Thesis  $thesis
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Thesis $thesis)
     {
-        $thesis = Thesis::find($id);
+        $thesis->load(['student', 'supervisors', 'timelines']);
         return view('staffadmin.thesis.show', compact('thesis'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Thesis  $thesis
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Thesis $thesis)
     {
-        $thesis = Thesis::find($id);
         return view('staffadmin.thesis.edit', compact('thesis'));
     }
 
@@ -66,10 +65,10 @@ class ThesisController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Thesis  $thesis
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Thesis $thesis)
     {
         //
     }
@@ -77,12 +76,11 @@ class ThesisController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Thesis  $thesis
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Thesis $thesis)
     {
-        $thesis = Thesis::findOrFail($id);
         $thesis->delete();
         session()->flash('message', 'Thesis has been deleted succefully');
         return back()->withInput();

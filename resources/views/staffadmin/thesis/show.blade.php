@@ -134,29 +134,13 @@
                     @endforeach
                 </x-card> --}}
 
-                {{-- @if (auth()->user()->isSupervisor()) --}}
-                <x-card title="Thesis Review">
-                    <div class="flex flex-wrap gap-4">
-                        <h3 class="font-bold">Latest Submission:</h3>
-                        <a href="{{ route('thesis.download', $thesis->id) }}"
-                            class="text-blue-600
-                                        underline">Download
-                            Thesis</a>
-                    </div>
-
-                    <livewire:thesis-amendment.form />
-
-                </x-card>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <livewire:thesis.progress :thesis="$thesis" />
                     <livewire:thesis.timeline :thesis="$thesis" />
                     <div class="col-span-1 md:col-span-2">
                         <livewire:thesis.review-form :thesis="$thesis" />
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>

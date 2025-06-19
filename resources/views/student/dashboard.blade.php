@@ -7,8 +7,6 @@
 
     <div class="py-12 ">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-
-
             <!--  -->
             @if (Session::has('message'))
                 <x-alert-success>{{ Session::get('message') }}</x-alert-success>
@@ -122,30 +120,18 @@
 
 
                 <!-- Timeline Display -->
-                <x-card title="Thesis Timelines">
+                {{-- <x-card title="Thesis Timelines">
                     @foreach ($thesis->timelines as $entry)
                         <div class="mb-4">
                             <div class="text-sm font-bold">{{ $entry->stage }}</div>
                             <div class="text-xs text-gray-500">{{ $entry->status }} —
-                                {{ $entry->date->format('d M Y') }}</div>
-                        </div>
-                    @endforeach
-                </x-card>
+                                {{-- {{ $entry->date->format('d M Y') }}</div> --
+            </div>
+            @endforeach
+            </x-card> --}}
 
-                {{-- @if (auth()->user()->isSupervisor()) --}}
-                <x-card title="Thesis Review">
-                    <div class="flex flex-wrap gap-4">
-                        <h3 class="font-bold">Latest Submission:</h3>
-                        <a href="{{ route('thesis.download', $thesis->id) }}"
-                            class="text-blue-600
-                                        underline">Download
-                            Thesis</a>
-                    </div>
+                <livewire:thesis.upload-form :thesis="$thesis" />
 
-                    <livewire:thesis-amendment.form />
-
-                </x-card>
-                {{-- @endif --}}
             </div>
         </div>
     </div>

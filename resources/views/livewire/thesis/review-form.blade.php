@@ -24,6 +24,11 @@
             </div>
 
             <div>
+                <x-input type="file" wire:model="reviewFile" label="Optional Review File (PDF or DOCX)"
+                    accept=".pdf,.docx" />
+            </div>
+
+            <div>
                 <x-textarea label="Supervisor Comments / Feedback" class="resize-y"
                     placeholder="Write your feedback here..." wire:model.defer="feedback" />
 

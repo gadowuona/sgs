@@ -13,16 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
+
         Schema::create('thesis_amendments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('thesis_id')->constrained()->onDelete('cascade');
-            $table->enum('type', ['initial', 'amendment'])->default('initial');
-            $table->string('file_path');
+
+            $table->enum('type', ['initial', 'amendment'])->default('amendment');
+            $table->string('file_path'); // Student’s uploaded file
             $table->enum('status', ['submitted', 'under-review', 'changes-requested', 'accepted'])->default('submitted');
+
             $table->timestamp('submitted_at')->nullable();
             $table->timestamp('reviewed_at')->nullable();
+
             $table->foreignId('reviewed_by')->nullable()->constrained('supervisors')->onDelete('set null');
             $table->text('supervisor_feedback')->nullable();
+            $table->string('supervisor_file_path')->nullable(); // Optional review file
+
             $table->timestamps();
         });
     }

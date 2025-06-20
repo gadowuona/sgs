@@ -16,11 +16,12 @@ class ReviewForm extends Component
     public Thesis $thesis;
     public ThesisAmendment $amendment;
 
-    public string $status, $feedback;
+    public string $status, $feedback, $reviewFile;
 
     protected $rules = [
         'status' => 'required|in:accepted,changes-requested',
         'feedback' => 'required|string|max:5000',
+        'reviewFile' => 'nullable|file|mimes:pdf,docx|max:10240',
     ];
 
     public function updated($fields)
@@ -41,11 +42,18 @@ class ReviewForm extends Component
         try {
             DB::beginTransaction();
 
+            $reviewPath = null;
+            if ($this->reviewFile) {
+                $reviewPath = "theses/{$this->thesis->id}/reviews/" . now()->timestamp . "_review." . $this->reviewFile->getClientOriginalExtension();
+                Storage::put($reviewPath, $this->reviewFile->get());
+            }
+
             $this->amendment->update([
                 'status' => $this->status,
                 'reviewed_by' => auth()->user()->supervisor->id ?? null,
                 'reviewed_at' => now(),
                 'supervisor_feedback' => $this->feedback,
+                'supervisor_file_path' => $reviewPath,
             ]);
 
             ThesisTimeline::create([

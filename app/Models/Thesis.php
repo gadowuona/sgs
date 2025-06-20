@@ -44,4 +44,9 @@ class Thesis extends Model
     {
         return $this->hasMany(ThesisTimeline::class)->latest('event_date');
     }
+
+    public function amendments()
+    {
+        return $this->hasMany(ThesisAmendment::class);
+    }
 }

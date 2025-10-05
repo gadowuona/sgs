@@ -19,8 +19,14 @@ class UploadForm extends Component
     public $file;
 
     protected $rules = [
-        'file' => 'required|mimes:pdf|max:10240', // max 10MB
+        'file' => 'required|mimes:pdf,doc,docx|max:10240', // 10MB max
     ];
+
+    public function updatedFile()
+    {
+        $this->validateOnly('file');
+    }
+
 
     public function submit()
     {
@@ -28,37 +34,34 @@ class UploadForm extends Component
 
         try {
             DB::beginTransaction();
-            $filePath = "theses/{$this->thesis->id}/thesis.pdf";
 
-            // Overwrite file
-            Storage::put($filePath, $this->file->get());
-
+            $directory = "theses/{$this->thesis->id}";
+            $filename = 'upload-' . now()->timestamp . '.' . $this->file->getClientOriginalExtension();
+            $filePath = $this->file->storeAs($directory, $filename, 'public');
             // Update or create amendment
-            ThesisAmendment::updateOrCreate(
-                ['thesis_id' => $this->thesis->id],
-                [
-                    'file_path' => $filePath,
-                    'type' => 'amendment',
-                    'status' => 'submitted',
-                    'submitted_at' => now(),
-                    'reviewed_by' => null,
-                    'reviewed_at' => null,
-                    'supervisor_feedback' => null,
-                ]
-            );
+            $thesisAmendment = ThesisAmendment::create([
+                'thesis_id' => $this->thesis->id,
+                'file_path' => $filePath,
+                'type' => $this->thesis->amendments()->count() === 0 ? 'initial' : 'amendment',
+                'status' => 'submitted',
+                'submitted_at' => now(),
+            ]);
 
             // Log to timeline
-            ThesisTimeline::create([
+            $thesisTimeline = ThesisTimeline::create([
                 'thesis_id' => $this->thesis->id,
                 'event' => 'Amendment uploaded',
                 'note' => 'Student submitted a new version',
                 'event_date' => now(),
             ]);
             DB::commit();
+            // dd($thesisAmendment, $thesisTimeline);
 
             session()->flash('message', 'File uploaded successfully and sent for review.');
             $this->reset('file');
         } catch (Exception $e) {
+
+            dd($e->getMessage());
             DB::rollBack();
             session()->flash('error', 'Failed to upload file: ' . $e->getMessage());
         }

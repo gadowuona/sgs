@@ -9,14 +9,17 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ReviewForm extends Component
 {
+    use WithFileUploads;
 
     public Thesis $thesis;
     public ThesisAmendment $amendment;
 
-    public string $status, $feedback, $reviewFile;
+    public string $status, $feedback;
+    public $reviewFile = null;
 
     protected $rules = [
         'status' => 'required|in:accepted,changes-requested',
@@ -56,6 +59,7 @@ class ReviewForm extends Component
                 'supervisor_file_path' => $reviewPath,
             ]);
 
+
             ThesisTimeline::create([
                 'thesis_id' => $this->thesis->id,
                 'event' => $this->status === 'accepted' ? 'Submission accepted' : 'Amendment requested',
@@ -66,6 +70,7 @@ class ReviewForm extends Component
             DB::commit();
 
             session()->flash('message', 'Review submitted successfully!');
+            return redirect()->route('theses.show', $this->thesis->id);
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to submit review: ' . $e->getMessage());

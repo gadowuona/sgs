@@ -24,7 +24,7 @@
             </div>
 
             <div>
-                <x-input type="file" wire:model="reviewFile" label="Optional Review File (PDF or DOCX)"
+                <x-input type="file" wire:model.defer="reviewFile" label="Optional Review File (PDF or DOCX)"
                     accept=".pdf,.docx" />
             </div>
 
@@ -35,9 +35,9 @@
             </div>
 
             <div>
-                <button type="submit" class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">
+                <x-button type="submit" green spinner="submit">
                     Submit Review
-                </button>
+                </x-button>
             </div>
         </form>
     </div>

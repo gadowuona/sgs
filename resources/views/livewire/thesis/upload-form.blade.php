@@ -1,27 +1,29 @@
-<x-card title="Upload Your Thesis">
-    <div class="space-y-6">
-        @if (session()->has('message'))
-            <div class="bg-green-100 text-green-700 px-4 py-2 rounded">
-                {{ session('message') }}
-            </div>
-        @endif
+<div>
 
-        <form wire:submit.prevent="submit" class="space-y-4">
-            <div>
-                <label for="file" class="block font-medium">Upload PDF File</label>
-                <input type="file" wire:model="file" accept="application/pdf" class="w-full mt-1 border rounded p-2">
-                @error('file')
-                    <span class="text-red-600 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
+    <x-card title="Upload Your Thesis">
+        <div class="space-y-6">
 
-            <div wire:loading wire:target="file" class="text-sm text-gray-500">
-                Uploading file...
-            </div>
+            <form wire:submit.prevent="submit" enctype="multipart/form-data" class="space-y-4">
+                <div>
+                    <x-input type="file" wire:model.live="file" accept=".pdf,.doc,.docx" />
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Submit
-            </button>
-        </form>
-    </div>
-</x-card>
+                </div>
+
+                <div wire:loading wire:target="file" class="text-sm text-gray-500">
+                    Uploading file...
+                </div>
+                <div>
+                    <x-button type="submit" green spinner="submit">
+                        Submit
+                    </x-button>
+                </div>
+            </form>
+            @if (session()->has('message'))
+                <div class="mt-4 text-green-600">{{ session('message') }}</div>
+            @endif
+            @if (session()->has('error'))
+                <div class="mt-4 text-red-600">{{ session('error') }}</div>
+            @endif
+        </div>
+    </x-card>
+</div>

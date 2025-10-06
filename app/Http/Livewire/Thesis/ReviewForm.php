@@ -6,6 +6,7 @@ use App\Models\Thesis;
 use App\Models\ThesisAmendment;
 use App\Models\ThesisTimeline;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -16,7 +17,7 @@ class ReviewForm extends Component
     use WithFileUploads;
 
     public Thesis $thesis;
-    public ThesisAmendment $amendment;
+    public ?ThesisAmendment $amendment = null;
 
     public string $status, $feedback;
     public $reviewFile = null;
@@ -47,18 +48,20 @@ class ReviewForm extends Component
 
             $reviewPath = null;
             if ($this->reviewFile) {
-                $reviewPath = "theses/{$this->thesis->id}/reviews/" . now()->timestamp . "_review." . $this->reviewFile->getClientOriginalExtension();
-                Storage::put($reviewPath, $this->reviewFile->get());
+                $reviewPath = $this->reviewFile->storeAs(
+                    "theses/{$this->thesis->id}/reviews",
+                    now()->timestamp . '_review.' . $this->reviewFile->getClientOriginalExtension(),
+                    'public'
+                );
             }
 
             $this->amendment->update([
                 'status' => $this->status,
-                'reviewed_by' => auth()->user()->supervisor->id ?? null,
+                'reviewed_by' => optional(auth()->user()->supervisor)->id,
                 'reviewed_at' => now(),
                 'supervisor_feedback' => $this->feedback,
                 'supervisor_file_path' => $reviewPath,
             ]);
-
 
             ThesisTimeline::create([
                 'thesis_id' => $this->thesis->id,
@@ -70,7 +73,7 @@ class ReviewForm extends Component
             DB::commit();
 
             session()->flash('message', 'Review submitted successfully!');
-            return redirect()->route('theses.show', $this->thesis->id);
+            return redirect()->route(Auth::user()->role === 'STF' ? 'staff.thesis.show' : 'theses.show', $this->thesis->id);
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to submit review: ' . $e->getMessage());
@@ -80,9 +83,15 @@ class ReviewForm extends Component
 
     public function download()
     {
-        return Storage::download($this->amendment->file_path);
-    }
+        $path = $this->amendment->file_path;
 
+        if (!$path || !Storage::disk('public')->exists($path)) {
+            session()->flash('error', 'File not found or no longer exists.');
+            return redirect()->back();
+        }
+
+        return Storage::disk('public')->download($path);
+    }
 
 
     public function render()

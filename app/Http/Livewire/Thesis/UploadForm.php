@@ -59,6 +59,7 @@ class UploadForm extends Component
 
             session()->flash('message', 'File uploaded successfully and sent for review.');
             $this->reset('file');
+            return redirect()->back();
         } catch (Exception $e) {
 
             dd($e->getMessage());

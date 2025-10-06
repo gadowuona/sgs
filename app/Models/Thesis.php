@@ -47,6 +47,6 @@ class Thesis extends Model
 
     public function amendments()
     {
-        return $this->hasMany(ThesisAmendment::class);
+        return $this->hasMany(ThesisAmendment::class)->orderByDesc('created_at');
     }
 }
